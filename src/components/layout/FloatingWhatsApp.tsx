@@ -9,7 +9,7 @@ export default function FloatingWhatsApp() {
     const message = encodeURIComponent(
       "Hi! I'm interested in your invitation services. Can you help me?"
     );
-    window.open(`https://api.whatsapp.com/send?phone=919876543210&text=${message}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=91 9121080131&text=${message}`, '_blank');
   };
 
   return (

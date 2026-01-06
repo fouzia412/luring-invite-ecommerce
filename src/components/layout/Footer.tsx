@@ -8,7 +8,7 @@ export default function Footer() {
     const message = encodeURIComponent(
       "Hi! I'm interested in your invitation services. Can you help me?"
     );
-    window.open(`https://api.whatsapp.com/send?phone=919876543210&text=${message}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=91 9121080131&text=${message}`, '_blank');
   };
 
   return (
@@ -118,7 +118,7 @@ export default function Footer() {
                 <li className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-primary mt-0.5" />
                   <div>
-                    <p className="text-muted-foreground">+91 98765 43210</p>
+                    <p className="text-muted-foreground">+91 9121080131</p>
                     <p className="text-xs text-muted-foreground/70">Mon-Sat, 10AM-7PM</p>
                   </div>
                 </li>

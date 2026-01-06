@@ -13,6 +13,24 @@ export default function BestSellersCarousel() {
     slidesToScroll: 1,
   });
 
+  const handleWhatsAppEnquiry = (product: any) => {
+  const currentUrl = window.location.origin + `/product/${product.slug}`;
+
+  const message = encodeURIComponent(
+    `Hi! I'm interested in this product:\n\n` +
+    `📌 Product: ${product.title}\n` +
+    `💰 Price: Starting at ₹${product.priceFrom}\n` +
+    `🔗 Link: ${currentUrl}\n\n` +
+    `Please share more details.`
+  );
+
+  window.open(
+    `https://api.whatsapp.com/send?phone=91 9121080131&text=${message}`,
+    "_blank"
+  );
+};
+
+
   return (
     <section className="section-padding bg-secondary/30">
       <div className="container-custom">
@@ -79,11 +97,32 @@ export default function BestSellersCarousel() {
                     <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
                     {/* CTA */}
-                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {/* <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Button variant="hero" size="lg" className="w-full">
                         View Details
                       </Button>
-                    </div>
+                    </div> */}
+                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+  <div className="flex gap-2">
+    <Button variant="hero" size="default" className="flex-1">
+      View Details
+    </Button>
+
+    <Button
+      type="button"
+      variant="whatsapp"
+      size="lg"
+      className="flex-1"
+      onClick={(e) => {
+        e.preventDefault();
+        handleWhatsAppEnquiry(product);
+      }}
+    >
+      WhatsApp Enquiry
+    </Button>
+  </div>
+</div>
+
                   </div>
 
                   <div className="space-y-2">

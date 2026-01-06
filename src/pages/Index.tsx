@@ -9,13 +9,15 @@ import ProcessSection from '@/components/home/ProcessSection';
 import ShowcaseParallax from '@/components/home/ShowcaseParallax';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import FAQPreview from '@/components/home/FAQPreview';
+import BannerTransition from '@/components/home/BannerTransition';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        <HeroSection />
+         <BannerTransition />
+        {/* <HeroSection /> */}
         <CategoriesCarousel />
         <BestSellersCarousel />
         <WhyChooseUs />

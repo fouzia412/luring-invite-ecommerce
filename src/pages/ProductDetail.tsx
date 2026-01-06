@@ -25,7 +25,7 @@ export default function ProductDetail() {
     const message = encodeURIComponent(
       `Hi! I'm interested in: ${product.title}\n\nProduct Link: ${currentUrl}\nPrice: Starting at ₹${product.priceFrom}\n\nMy Details:\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nOccasion Date: ${formData.date}\nLanguage: ${formData.language}\nNotes: ${formData.notes}`
     );
-    window.open(`https://api.whatsapp.com/send?phone=919876543210&text=${message}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=91 9121080131&text=${message}`, '_blank');
   };
 
   const handleEmailEnquiry = (e: React.FormEvent) => {
@@ -71,7 +71,7 @@ export default function ProductDetail() {
                     <li key={i} className="flex items-start gap-2 text-sm"><Check className="w-4 h-4 text-primary mt-0.5" /> {item}</li>
                   ))}
                 </ul>
-              </div>
+              </div> 
 
               {/* Enquiry Form */}
               <div className="bg-card border border-border rounded-xl p-6">

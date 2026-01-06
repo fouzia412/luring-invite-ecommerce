@@ -29,7 +29,7 @@ export default function Contact() {
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
               <div className="flex items-start gap-4 p-6 bg-card border border-border rounded-xl">
                 <Phone className="w-6 h-6 text-primary" />
-                <div><h3 className="font-semibold mb-1">Phone</h3><p className="text-muted-foreground">+91 98765 43210</p></div>
+                <div><h3 className="font-semibold mb-1">Phone</h3><p className="text-muted-foreground">+91 9121080131</p></div>
               </div>
               <div className="flex items-start gap-4 p-6 bg-card border border-border rounded-xl">
                 <Mail className="w-6 h-6 text-primary" />

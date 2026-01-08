@@ -8,10 +8,10 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 5000, suffix: '+', label: 'Happy Couples' },
-  { value: 150, suffix: '+', label: 'Design Templates' },
-  { value: 12, suffix: '+', label: 'Years Experience' },
-  { value: 98, suffix: '%', label: 'Client Satisfaction' },
+  { value: 3, suffix: '+', label: 'Years Experience' },
+  { value: 5000, suffix: '+', label: 'Design Templates' },
+  { value: 99.9, suffix: '%', label: 'Client Satisfaction' },
+  { value: 100, suffix: '+', label: 'Happy Couples' }, 
 ];
 
 function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
@@ -19,29 +19,49 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
+  const isFloat = !Number.isInteger(value);
+
   useEffect(() => {
     if (isInView) {
       const duration = 2000;
       const startTime = Date.now();
+
       const animate = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        setDisplayValue(Math.floor(value * eased));
+
+        const currentValue = value * eased;
+
+        setDisplayValue(
+          isFloat
+            ? Number(currentValue.toFixed(1)) // 👈 keep 1 decimal
+            : Math.floor(currentValue)
+        );
+
         if (progress < 1) {
           requestAnimationFrame(animate);
         }
       };
+
       requestAnimationFrame(animate);
     }
-  }, [isInView, value]);
+  }, [isInView, value, isFloat]);
 
   return (
-    <span ref={ref} className="font-heading text-4xl sm:text-5xl md:text-6xl text-primary">
-      {displayValue.toLocaleString()}{suffix}
+    <span
+      ref={ref}
+      className="font-heading text-4xl sm:text-5xl md:text-6xl text-primary"
+    >
+      {displayValue.toLocaleString(undefined, {
+        minimumFractionDigits: isFloat ? 1 : 0,
+        maximumFractionDigits: isFloat ? 1 : 0,
+      })}
+      {suffix}
     </span>
   );
 }
+
 
 export default function StatsCounter() {
   return (
@@ -55,7 +75,7 @@ export default function StatsCounter() {
       />
       
       {/* Overlay */}
-      <div className="absolute inset-0 bg-foreground/85" />
+      <div className="absolute inset-0 bg-foreground/65" />
       
       {/* Content */}
       <div className="container-custom relative z-10 px-4">

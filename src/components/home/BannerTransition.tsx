@@ -106,7 +106,7 @@ const BannerTransition = () => {
                   </React.Fragment>
                 ))}
               </div><br></br>
-              <Link to="/categories">
+              <Link to="/collections">
   <button className="bg-[#A86DCD] hover:bg-[#934bbf] text-white font-bold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center space-x-2">
     <span>Explore Now</span>
     <span>→</span>

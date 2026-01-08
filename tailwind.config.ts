@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Berkshire Swash", "cursive"],
+        heading: ["Lobster", "sans-serif"],
         body: ["Outfit", "sans-serif"],
       },
       colors: {

@@ -1,26 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, Phone } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X, Phone } from "lucide-react";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // ✅ UPDATED NAV ITEMS WITH SLUGS
   const navItems = [
-    { label: "WEDDING", key: "wedding" },
-    { label: "BIRTHDAY", key: "birthday" },
-    { label: "ANNIVERSARY", key: "anniversary" },
-    { label: "HOUSEWARMING", key: "house-warming" },
+    { label: "WEDDING", slug: "wedding-invites" },
+    { label: "BIRTHDAY", slug: "birthday" },
+    { label: "ANNIVERSARY", slug: "anniversary" },
+    { label: "HOUSEWARMING", slug: "house-warming" },
   ];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsMobileMenuOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -39,19 +44,39 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-4 ml-auto">
-            <a href="https://www.facebook.com/outrightluring" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.facebook.com/outrightluring"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i className="fab fa-facebook-f text-white text-lg"></i>
             </a>
-            <a href="https://www.instagram.com/outrightsluringinvite/" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.instagram.com/outrightsluringinvite/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i className="fab fa-instagram text-white text-lg"></i>
             </a>
-            <a href="https://in.pinterest.com/luringinvite/" target="_blank" rel="noreferrer">
+            <a
+              href="https://in.pinterest.com/luringinvite/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i className="fab fa-pinterest-p text-white text-lg"></i>
             </a>
-            <a href="https://www.youtube.com/channel/UCNM3O5018f7nqLKFn3UIH8w" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.youtube.com/channel/UCNM3O5018f7nqLKFn3UIH8w"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i className="fab fa-youtube text-white text-lg"></i>
             </a>
-            <a href="https://in.linkedin.com/in/luring-invite-94a35928b" target="_blank" rel="noreferrer">
+            <a
+              href="https://in.linkedin.com/in/luring-invite-94a35928b"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i className="fab fa-linkedin-in text-white text-lg"></i>
             </a>
           </div>
@@ -62,7 +87,6 @@ const Header = () => {
       <header className="bg-white shadow-md sticky top-0 z-50 font-outfit">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-2 gap-6">
-
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link to="/" className="flex items-center">
@@ -79,10 +103,10 @@ const Header = () => {
               className="hidden lg:flex items-center space-x-8 flex-grow justify-center"
               ref={dropdownRef}
             >
-              {navItems.map(({ label, key }) => (
+              {navItems.map(({ label, slug }) => (
                 <Link
-                  key={key}
-                  to={`/${key}`}
+                  key={slug}
+                  to={`/collections/${slug}`}
                   className="font-semibold text-black hover:text-[#A86DCD] transition-colors"
                 >
                   {label}
@@ -109,7 +133,11 @@ const Header = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 text-gray-600 hover:text-[#A86DCD]"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -132,10 +160,11 @@ const Header = () => {
             </div>
 
             <nav className="space-y-4">
-              {navItems.map(({ label, key }) => (
+              {navItems.map(({ label, slug }) => (
                 <Link
-                  key={key}
-                  to={`/${key}`}
+                  key={slug}
+                  to={`/collections/${slug}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="block text-lg text-gray-700 hover:text-[#A86DCD]"
                 >
                   {label}
@@ -144,6 +173,7 @@ const Header = () => {
 
               <Link
                 to="/about"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-lg text-gray-700 hover:text-[#A86DCD]"
               >
                 ABOUT
@@ -151,6 +181,7 @@ const Header = () => {
 
               <Link
                 to="/contact"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-lg text-gray-700 hover:text-[#A86DCD]"
               >
                 CONTACT

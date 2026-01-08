@@ -12,6 +12,8 @@ import FAQPreview from '@/components/home/FAQPreview';
 import StatsCounter from '@/components/home/StatsCounter';
 import ServicesSection from '@/components/home/ServicesSection';
 import ContactFormSection from '@/components/home/ContactFormSection';
+import ProcessScrollSection from '@/components/home/ProcessScrollSection';
+import TrendingVideo from '@/components/home/TrendingVideo';
 
 const Index = () => {
   return (
@@ -19,11 +21,13 @@ const Index = () => {
       <Header />
       <main>
         <BannerTransition />
+        <TrendingVideo />
         <CategoriesCarousel />
-        <ServicesSection />
-        <BestSellersCarousel />
-        <StatsCounter />
         <WhyChooseUs />
+        <StatsCounter />
+         <BestSellersCarousel />
+        <ServicesSection />
+        <ProcessScrollSection />
         <ProcessSection />
         <ShowcaseParallax />
         <TestimonialsSection />

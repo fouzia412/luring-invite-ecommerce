@@ -34,12 +34,13 @@ const services = [
     description: 'Full wedding stationery suites including save the dates, RSVPs, thank you cards, and more.',
     link: '/collections/stationery',
   },
-  {
-    icon: Sparkles,
-    title: 'Rush Delivery',
-    description: 'Need it fast? Our express service delivers stunning invitations within 24 hours without compromising quality.',
-    link: '/contact',
-  },
+{
+  icon: Sparkles,
+  title: 'Customized Magnets',
+  description: 'Make your moments memorable with beautifully designed customized magnets—perfect for weddings, events, and keepsakes that last.',
+  link: '/contact',
+},
+
 ];
 
 export default function ServicesSection() {

@@ -160,6 +160,51 @@ export const collections: Collection[] = [
     thumbnail: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80',
     productCount: 3,
   },
+  {
+    id: 'col-12',
+    title: 'AI Wedding Invites',
+    slug: 'wedding-invites',
+    category: 'ai-video-invites',
+    description: 'Timeless wedding invitations for your special day.',
+    thumbnail: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&q=80',
+    productCount: 8,
+  },
+  {
+    id: 'col-13',
+    title: 'Anniversary-AI Invites',
+    slug: 'anniversary',
+    category: 'ai-video-invites',
+    description: 'Celebrate years of love with elegant anniversary invites.',
+    thumbnail: 'https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&q=80',
+    productCount: 4,
+  },
+  {
+    id: 'col-14',
+    title: 'House Warming-AI Invites',
+    slug: 'house-warming',
+    category: 'ai-video-invites',
+    description: 'Welcome guests to your new home in style.',
+    thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    productCount: 3,
+  },
+  {
+    id: 'col-15',
+    title: 'Birthday-AI Invites',
+    slug: 'birthday',
+    category: 'ai-video-invites',
+    description: 'Make birthdays memorable with custom invitations.',
+    thumbnail: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80',
+    productCount: 5,
+  },
+  {
+    id: 'col-16',
+    title: 'Baby Showers-AI Invites',
+    slug: 'baby-showers',
+    category: 'ai-video-invites',
+    description: 'Adorable invites to celebrate the little one.',
+    thumbnail: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80',
+    productCount: 4,
+  },
 ];
 
 export const products: Product[] = [
@@ -655,4 +700,71 @@ export const getBestSellers = (): Product[] => {
 
 export const getNewProducts = (): Product[] => {
   return products.filter((p) => p.isNew);
+};
+export interface TrendingVideoItem {
+  id: string;
+  productSlug: string; // connects this video to a product (for View + WhatsApp)
+  platform: 'local' | 'youtube' | 'instagram' | 'pinterest';
+  url: string; // video link (IG/YT/Pinterest) or local mp4 path
+  thumbnail?: string; // optional (recommended for IG/Pinterest)
+}
+
+export const trendingVideos: TrendingVideoItem[] = [
+  {
+    id: 'tv-1',
+    productSlug: 'royal-3d-palace-invitation',
+    platform: 'instagram',
+    url: 'https://www.instagram.com/reel/DS7YuTojLv0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+    // thumbnail optional
+  },
+  // Example YouTube (replace with yours)
+  {
+    id: 'tv-2',
+    productSlug: 'love-story-timeline',
+    platform: 'youtube',
+    url: '/videos/1.mp4',
+  },
+  // Example Local MP4 (put file in /public/videos/)
+  {
+    id: 'tv-3',
+    productSlug: 'modern-minimal-ai-video',
+    platform: 'local',
+    url: '/videos/sample.mp4',
+    // thumbnail optional for local videos too (poster)
+    // thumbnail: '/videos/sample-poster.jpg',
+  },
+  {
+    id: 'tv-4',
+    productSlug: 'modern-minimal-ai-video',
+    platform: 'local',
+    url: '/videos/sample.mp4',
+    // thumbnail optional for local videos too (poster)
+    // thumbnail: '/videos/sample-poster.jpg',
+  },
+  {
+    id: 'tv-5',
+    productSlug: 'modern-minimal-ai-video',
+    platform: 'local',
+    url: '/videos/sample.mp4',
+    // thumbnail optional for local videos too (poster)
+    // thumbnail: '/videos/sample-poster.jpg',
+  },
+  {
+    id: 'tv-6',
+    productSlug: 'modern-minimal-ai-video',
+    platform: 'local',
+    url: '/videos/sample.mp4',
+    // thumbnail optional for local videos too (poster)
+    // thumbnail: '/videos/sample-poster.jpg',
+  },
+];
+
+export const getTrendingVideosWithProducts = () => {
+  return trendingVideos
+    .map((v) => {
+      const product = products.find((p) => p.slug === v.productSlug);
+      if (!product) return null;
+      return { ...v, product };
+    })
+    .filter(Boolean) as Array<TrendingVideoItem & { product: Product }>;
 };

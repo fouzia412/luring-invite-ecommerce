@@ -1,94 +1,167 @@
-import { motion } from 'framer-motion';
-import { Sparkles, Award, Clock, Users, HeadphonesIcon, Cpu } from 'lucide-react';
+"use client";
+
+import { motion } from "framer-motion";
+import { Sparkles, Award, Clock, Users, Headphones, Cpu } from "lucide-react";
+import { Tilt } from "@/components/ui/tilt";
+import { Spotlight } from "@/components/ui/spotlight";
+import { cn } from "@/lib/utils";
 
 const features = [
   {
     icon: Sparkles,
     title: "Unparalleled Personalization",
-    description: "We believe in the power of personalization. Each invitation is a canvas for your unique story, allowing you to add personal touches, themes, and colours that resonate with your event"
+    description:
+      "Every invitation is uniquely yours — custom themes, colors, fonts, illustrations and heartfelt personal details.",
+    color: "#A86DCD", // your main purple
+    bg: "bg-gradient-to-br from-purple-50 to-pink-50",
   },
   {
     icon: Award,
     title: "Exceptional Quality",
-    description: "We are committed to delivering invitations of the highest quality. Our attention to detail ensures that every element, from graphics to wording, is meticulously crafted to perfection."
+    description:
+      "Premium materials and pixel-perfect craftsmanship — invitations that feel luxurious and last forever.",
+    color: "#7C3AED",
+    bg: "bg-gradient-to-br from-indigo-50 to-blue-50",
   },
   {
     icon: Clock,
     title: "Timely Delivery",
-    description: "We understand the importance of timelines for your event. Count on us for prompt and reliable delivery of your invitations, allowing you and your guests ample time to prepare for the celebration."
+    description:
+      "We respect your timeline. Fast, reliable delivery so you and your guests can prepare without stress.",
+    color: "#EC4899",
+    bg: "bg-gradient-to-br from-pink-50 to-rose-50",
+  },
+
+  {
+    icon: Headphones,
+    title: "Always There For You",
+    description:
+      "Friendly, fast and dedicated support — we're here for every question and change you need.",
+    color: "#10B981",
+    bg: "bg-gradient-to-br from-emerald-50 to-teal-50",
   },
   {
     icon: Users,
-    title: "Collaborative Design Process",
-    description: "Enjoy a collaborative design process where your ideas meet our expertise. We value your input, working closely with you to create invitations that surpass expectations and align with your vision."
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "Responsive Customer Support",
-    description: "Our dedicated customer support team is here to assist you at every step. Have questions or need adjustments to your invitations? We're just a message or call away, ensuring a smooth and stress-free experience."
+    title: "Collaborative Design",
+    description:
+      "Your ideas + our creativity. We work together step-by-step until it's perfect for your vision.",
+    color: "#F59E0B",
+    bg: "bg-gradient-to-br from-amber-50 to-yellow-50",
   },
   {
     icon: Cpu,
-    title: "Cutting-Edge Technology",
-    description: "Embrace the latest in invitation design technology. We stay ahead of the curve, incorporating innovative design tools and techniques to bring modern, fresh, and visually stunning invitations to life."
-  }
+    title: "Modern Technology",
+    description:
+      "Latest AI tools & innovative design techniques for fresh, contemporary and breathtaking results.",
+    color: "#06B6D4",
+    bg: "bg-gradient-to-br from-cyan-50 to-sky-50",
+  },
 ];
 
-const WhyChooseUs = () => {
+export default function WhyChooseUs() {
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
-      {/* Background accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-10 bg-gradient-to-b from-background via-background/95 to-muted/30 relative overflow-hidden">
+      {/* Very soft background decoration */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-[#A86DCD]/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-purple-500/10 to-transparent rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16 md:mb-20"
         >
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Why Choose <span className="text-primary">Luring Invite?</span>
           </h2>
-          <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-            Captivate your guests with captivating video, stunning static, and elegant stationary invitations. 
-            Elevate your event with our unparalleled invitation designs.
+          <p className="mt-5 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            We go beyond invitations — we help you create memories your guests
+            will talk about for years.
           </p>
         </motion.div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
+              transition={{ duration: 0.7, delay: index * 0.1 }}
             >
-              <div className="h-full p-6 lg:p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
-                {/* Icon */}
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
-                  <feature.icon className="w-7 h-7 text-primary" />
+              <Tilt
+                rotationFactor={7}
+                isRevese
+                springOptions={{
+                  stiffness: 160,
+                  damping: 14,
+                  mass: 0.35,
+                }}
+                className="group relative h-full perspective-[1100px]"
+              >
+                <div
+                  className={cn(
+                    "relative h-full rounded-3xl overflow-hidden border border-border/30",
+                    "shadow-lg shadow-black/5 transition-all duration-500",
+                    "group-hover:shadow-2xl group-hover:shadow-[#A86DCD]/15",
+                    feature.bg
+                  )}
+                >
+                  {/* Spotlight glow */}
+                  <Spotlight
+                    className="from-white/40 via-white/20 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    size={340}
+                    springOptions={{
+                      stiffness: 70,
+                      damping: 18,
+                    }}
+                  />
+
+                  <div className="relative z-10 p-8 flex flex-col h-full">
+                    {/* Icon container */}
+                    <div className="mb-5 relative">
+                      <div
+                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-700 blur-xl"
+                        style={{
+                          background: `radial-gradient(circle at 30% 30%, ${feature.color}60, transparent 70%)`,
+                        }}
+                      />
+
+                      <div
+                        className="w-24 h-24 rounded-2xl flex items-center justify-center relative z-10 mx-auto shadow-lg"
+                        style={{
+                          background: "", // dark bg for icon
+                          boxShadow: `0 8px 32px ${feature.color}40, inset 0 0 0 1px ${feature.color}30`,
+                        }}
+                      >
+                        <feature.icon
+                          className="w-12 h-12"
+                          style={{ color: feature.color }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Text content */}
+                    <h3 className="font-display text-2xl   text-center  mb-2 text-gray-900">
+                      {feature.title}
+                    </h3>
+
+                    <p className="text-gray-700 text-base md:text-lg leading-relaxed text-center flex-grow">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-                
-                {/* Content */}
-                <h3 className="font-display text-xl text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+              </Tilt>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default WhyChooseUs;
+}

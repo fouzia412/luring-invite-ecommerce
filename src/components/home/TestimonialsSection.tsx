@@ -1,24 +1,15 @@
-import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
-import { testimonials } from '@/data/products';
-import useEmblaCarousel from 'embla-carousel-react';
-import { useCallback, useEffect, useState } from 'react';
+import { motion } from "framer-motion";
+import { CircularTestimonials, type Testimonial } from "@/components/ui/circular-testimonials";
+import { testimonials } from "@/data/products";
 
 export default function TestimonialsSection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: 'center',
-  });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const scrollTo = useCallback((index: number) => {
-    if (emblaApi) emblaApi.scrollTo(index);
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on('select', () => setSelectedIndex(emblaApi.selectedScrollSnap()));
-  }, [emblaApi]);
+  // Map your existing data into the component’s required shape
+  const circularData: Testimonial[] = testimonials.map((t) => ({
+    quote: t.text,
+    name: t.name,
+    designation: `${t.location} • ${t.occasion}`,
+    src: t.image,
+  }));
 
   return (
     <section className="section-padding bg-gradient-to-b from-secondary/30 to-background overflow-hidden">
@@ -38,64 +29,26 @@ export default function TestimonialsSection() {
           </p>
         </motion.div>
 
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex-none w-full md:w-1/2 lg:w-1/3 px-4"
-              >
-                <div className="bg-card border border-border rounded-2xl p-8 h-full relative">
-                  {/* Quote icon */}
-                  <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20" />
-
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-
-                  {/* Text */}
-                  <p className="text-foreground mb-6 leading-relaxed">
-                    "{testimonial.text}"
-                  </p>
-
-                  {/* Author */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-primary-foreground font-bold">
-                      {testimonial.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                      <p className="text-sm text-muted-foreground">
-                        {testimonial.location} • {testimonial.occasion}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Navigation dots */}
-        <div className="flex justify-center gap-2 mt-8">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => scrollTo(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                selectedIndex === index
-                  ? 'w-8 bg-primary'
-                  : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-              }`}
+        <div className="flex justify-center">
+          <div className="w-full max-w-6xl rounded-3xl border border-border bg-card/60 backdrop-blur-sm p-4 md:p-8">
+            <CircularTestimonials
+              testimonials={circularData}
+              autoplay={true}
+              colors={{
+                name: "hsl(var(--foreground))",
+                designation: "hsl(var(--muted-foreground))",
+                testimony: "hsl(var(--foreground))",
+                arrowBackground: "hsl(var(--primary))",
+                arrowForeground: "hsl(var(--primary-foreground))",
+                arrowHoverBackground: "hsl(var(--foreground))",
+              }}
+              fontSizes={{
+                name: "28px",
+                designation: "18px",
+                quote: "18px",
+              }}
             />
-          ))}
+          </div>
         </div>
       </div>
     </section>

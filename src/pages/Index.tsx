@@ -27,7 +27,7 @@ const Index = () => {
         pinEnd="+=120%"
         markers={false}
     />
-        <BannerTransition />
+        {/* <BannerTransition /> */}
         <TrendingVideo />
         <CategoriesCarousel />
         <WhyChooseUs />
@@ -35,7 +35,7 @@ const Index = () => {
          <BestSellersCarousel />
         <ServicesSection />
         <ProcessScrollSection />
-        <ProcessSection />
+        {/* <ProcessSection /> */}
         <ShowcaseParallax />
         <TestimonialsSection />
         <FAQPreview />

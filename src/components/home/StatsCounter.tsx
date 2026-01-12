@@ -65,7 +65,7 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
 
 export default function StatsCounter() {
   return (
-    <section className="relative py-16 md:py-24 overflow-hidden">
+    <section className="relative py-16 md:py-10 overflow-hidden">
       {/* Parallax Background */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed"

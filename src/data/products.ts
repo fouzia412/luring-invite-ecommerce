@@ -2,14 +2,14 @@ export interface Product {
   id: string;
   title: string;
   slug: string;
-  category: 'ai-video-invites' | 'digital-invites';
+  category: "ai-video-invites" | "digital-invites";
   collection: string;
   collectionSlug: string;
   priceFrom: number;
   tags: string[];
-  deliveryTime: '24h' | '48h' | '72h';
-  styles: ('Royal' | 'Minimal' | 'Modern' | 'Traditional' | 'Floral' | 'Cinematic')[];
-  languages: ('Telugu' | 'Hindi' | 'English')[];
+  deliveryTime: "24h" | "48h" | "72h";
+  styles: ("Royal" | "Minimal" | "Modern" | "Traditional" | "Floral" | "Cinematic")[];
+  languages: ("Telugu" | "Hindi" | "English")[];
   thumbnail: string;
   previewImages: string[];
   bestSeller: boolean;
@@ -18,7 +18,11 @@ export interface Product {
   whatIncluded: string[];
   revisionPolicy: string;
   deliverables: string[];
+
+  // ✅ Add this
+  video?: ProductVideo;
 }
+
 
 export interface Collection {
   id: string;
@@ -207,32 +211,61 @@ export const collections: Collection[] = [
   },
 ];
 
+
+//video and digital products
+export type VideoPlatform = "local" | "youtube" | "instagram" | "pinterest";
+
+export interface ProductVideo {
+  platform: VideoPlatform;
+  url: string;        // IG/YT/Pinterest link OR local mp4 path like "/videos/demo.mp4"
+  thumbnail?: string; // optional poster/preview override (you can skip this)
+}
+
 export const products: Product[] = [
-  // 3D AI Video Products
-  {
-    id: 'prod-1',
-    title: 'Royal 3D Palace Invitation',
-    slug: 'royal-3d-palace-invitation',
-    category: 'ai-video-invites',
-    collection: '3D AI Video',
-    collectionSlug: '3d-ai-video',
-    priceFrom: 4999,
-    tags: ['Premium', 'AI Powered', '3D Animation'],
-    deliveryTime: '72h',
-    styles: ['Royal', 'Cinematic'],
-    languages: ['Telugu', 'Hindi', 'English'],
-    thumbnail: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
-    previewImages: [
-      'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
-      'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80',
-    ],
-    bestSeller: true,
-    isNew: false,
-    description: 'Experience the grandeur of royalty with our stunning 3D palace invitation. AI-crafted visuals bring your wedding story to life.',
-    whatIncluded: ['60-90 second video', 'Custom 3D palace environment', 'AI voice narration', 'Background music', '2 revision rounds'],
-    revisionPolicy: 'Up to 2 revision rounds included. Additional revisions at ₹500 each.',
-    deliverables: ['MP4 video (1080p)', 'WhatsApp optimized version', 'Instagram Reel version'],
+{
+  id: "prod-1",
+  title: "Royal 3D Palace Invitation",
+  slug: "royal-3d-palace-invitation",
+  category: "ai-video-invites",
+  collection: "3D AI Video",
+  collectionSlug: "3d-ai-video",
+  priceFrom: 4999,
+  tags: ["Premium", "AI Powered", "3D Animation"],
+  deliveryTime: "72h",
+  styles: ["Royal", "Cinematic"],
+  languages: ["Telugu", "Hindi", "English"],
+  thumbnail: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+  previewImages: [
+    "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+    "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80",
+  ],
+  bestSeller: true,
+  isNew: false,
+  description:
+    "Experience the grandeur of royalty with our stunning 3D palace invitation. AI-crafted visuals bring your wedding story to life.",
+  whatIncluded: [
+    "60-90 second video",
+    "Custom 3D palace environment",
+    "AI voice narration",
+    "Background music",
+    "2 revision rounds",
+  ],
+  revisionPolicy:
+    "Up to 2 revision rounds included. Additional revisions at ₹500 each.",
+  deliverables: [
+    "MP4 video (1080p)",
+    "WhatsApp optimized version",
+    "Instagram Reel version",
+  ],
+
+  // ✅ VIDEO SUPPORT (this enables play button in Best Sellers)
+  video: {
+    platform: "local", // local | youtube | instagram | pinterest
+    url: "/videos/1.mp4",
+    // thumbnail: "/videos/royal-3d-palace-poster.jpg" // optional
   },
+},
+
   {
     id: 'prod-2',
     title: 'Modern Minimal AI Video',
@@ -631,7 +664,7 @@ export const testimonials = [
     rating: 5,
     occasion: "Anniversary",
     image:
-      "https://images.unsplash.com/photo-1524503033411-f8f36b4cfcfd?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1525134479668-1bee5c7c6845?auto=format&fit=crop&w=1400&q=80",
   },
   {
     id: 3,
@@ -651,7 +684,7 @@ export const testimonials = [
     rating: 5,
     occasion: "House Warming",
     image:
-      "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80",
   },
   {
     id: 5,
@@ -661,7 +694,7 @@ export const testimonials = [
     rating: 5,
     occasion: "Wedding",
     image:
-      "https://images.unsplash.com/photo-1524502585761-6c2b7e06b5ad?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1525134479668-1bee5c7c6845?auto=format&fit=crop&w=1400&q=80",
   },
 ];
 

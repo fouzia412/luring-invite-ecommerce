@@ -1,8 +1,34 @@
 import type { Config } from "tailwindcss";
 
+// Tailwind internal util (used by the aurora plugin)
+const flattenColorPalette =
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require("tailwindcss/lib/util/flattenColorPalette").default;
+
+// This plugin adds each Tailwind *palette* color as a global CSS variable, e.g. var(--blue-500).
+// We filter out values that already reference CSS variables (like hsl(var(--primary))) to avoid recursion.
+function addVariablesForColors({ addBase, theme }: any) {
+  const allColors = flattenColorPalette(theme("colors"));
+
+  const newVars = Object.fromEntries(
+    Object.entries(allColors)
+      .filter(([, val]) => typeof val === "string" && !val.includes("var(--"))
+      .map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
+
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -68,6 +94,7 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -101,15 +128,26 @@ export default {
           "0%, 100%": { boxShadow: "0 0 20px hsl(277 50% 62% / 0.3)" },
           "50%": { boxShadow: "0 0 40px hsl(277 50% 62% / 0.5)" },
         },
-        "float": {
+        float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
-        "shimmer": {
+        shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+
+        // ✅ Aurora keyframes added
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%",
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%",
+          },
+        },
       },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
@@ -119,16 +157,27 @@ export default {
         "slide-in-right": "slide-in-right 0.6s ease-out forwards",
         "scale-in": "scale-in 0.5s ease-out forwards",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
-        "float": "float 3s ease-in-out infinite",
-        "shimmer": "shimmer 2s linear infinite",
+        float: "float 3s ease-in-out infinite",
+        shimmer: "shimmer 2s linear infinite",
+
+        // ✅ Aurora animation added
+        aurora: "aurora 60s linear infinite",
       },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-hero": "linear-gradient(135deg, hsl(277 50% 15%), hsl(277 40% 8%))",
         "gradient-primary": "linear-gradient(135deg, hsl(277 50% 62%), hsl(277 60% 75%))",
-        "shimmer-gradient": "linear-gradient(90deg, transparent, hsl(277 50% 62% / 0.1), transparent)",
+        "shimmer-gradient":
+          "linear-gradient(90deg, transparent, hsl(277 50% 62% / 0.1), transparent)",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+
+  // ✅ Keep your existing plugin + addVariablesForColors
+  plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require("tailwindcss-animate"),
+    addVariablesForColors,
+  ],
 } satisfies Config;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Flame, ArrowRight, ChevronLeft, ChevronRight, Play, X } from 'lucide-react';
@@ -6,6 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 
 import { getTrendingVideosWithProducts } from '@/data/products';
 import { Button } from '@/components/ui/button';
+import { AuroraBackground } from '@/components/ui/aurora-background';
 
 type Platform = 'local' | 'youtube' | 'instagram' | 'pinterest';
 type TrendingItem = ReturnType<typeof getTrendingVideosWithProducts>[number];
@@ -99,7 +100,6 @@ function platformLabel(p: Platform) {
 
 /**
  * Loads Instagram embed.js once and re-processes embeds when url changes.
- * This is the official way to embed Instagram posts/reels reliably.
  */
 function useInstagramEmbed(url: string | null) {
   const [ready, setReady] = useState(false);
@@ -118,13 +118,11 @@ function useInstagramEmbed(url: string | null) {
       }
     };
 
-    // If script already present, just process
     if (w.instgrm?.Embeds?.process) {
       process();
       return;
     }
 
-    // Load script once
     const existing = document.querySelector('script[data-instgrm-embed="true"]') as HTMLScriptElement | null;
     if (existing) {
       existing.addEventListener('load', process, { once: true });
@@ -144,7 +142,6 @@ function useInstagramEmbed(url: string | null) {
     };
   }, [url]);
 
-  // Re-process after render (important when modal opens)
   useEffect(() => {
     if (!url) return;
     const w = window as any;
@@ -200,227 +197,210 @@ export default function TrendingVideo() {
   };
 
   return (
-    <section className="section-padding bg-secondary/30">
-      <div className="container-custom">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-8"
-        >
-          <div>
-            <div className="flex items-center gap-2 text-primary mb-2">
-              <Flame className="w-5 h-5" />
-              <span className="text-sm font-semibold uppercase tracking-wider">Trending Now</span>
+    <AuroraBackground
+      // ✅ Make aurora behave like a section background (not full-screen centered layout)
+      className="h-auto min-h-0 w-full items-stretch justify-start py-0 "
+      showRadialGradient={true}
+    >
+      <section className="section-padding w-full">
+        <div className="container-custom">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col md:flex-row md:items-end justify-between mb-8"
+          >
+            <div>
+              <div className="flex items-center gap-2 text-primary mb-2">
+                <Flame className="w-5 h-5" />
+                <span className="text-sm font-semibold uppercase tracking-wider">Trending Now</span>
+              </div>
+              <h2 className="font-heading text-3xl md:text-4xl text-foreground">Trending Videos</h2>
             </div>
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground">Trending Videos</h2>
-          </div>
 
-          <Link to="/collections" className="mt-4 md:mt-0">
-            <Button variant="ctaOutline" className="group">
-              View All
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <Button asChild variant="ctaOutline" className="group mt-4 md:mt-0">
+              <Link to="/collections">
+                View All
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
-          </Link>
-        </motion.div>
+          </motion.div>
 
-        {/* Carousel */}
-        <div className="relative">
+          {/* Carousel */}
           <div className="relative">
-            {/* Desktop arrows */}
-           {/* Floating arrows (desktop + mobile) */}
-<button
-  type="button"
-  onClick={scrollPrev}
-  className="
-    flex items-center justify-center
-    absolute left-2 sm:left-0 top-1/2 -translate-y-1/2
-    z-10
-    w-9 h-9 sm:w-10 sm:h-10
-    rounded-full
-    bg-background/95 border border-border shadow-sm
-    hover:bg-muted
-    sm:-translate-x-1/2
-  "
-  aria-label="Previous"
->
-  <ChevronLeft className="w-5 h-5" />
-</button>
+            <div className="relative">
+              {/* Floating arrows */}
+              <button
+                type="button"
+                onClick={scrollPrev}
+                className="
+                  flex items-center justify-center
+                  absolute left-2 sm:left-0 top-1/2 -translate-y-1/2
+                  z-10
+                  w-9 h-9 sm:w-10 sm:h-10
+                  rounded-full
+                  bg-background/95 border border-border shadow-sm
+                  hover:bg-muted
+                  sm:-translate-x-1/2
+                "
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
 
-<button
-  type="button"
-  onClick={scrollNext}
-  className="
-    flex items-center justify-center
-    absolute right-2 sm:right-0 top-1/2 -translate-y-1/2
-    z-10
-    w-9 h-9 sm:w-10 sm:h-10
-    rounded-full
-    bg-background/95 border border-border shadow-sm
-    hover:bg-muted
-    sm:translate-x-1/2
-  "
-  aria-label="Next"
->
-  <ChevronRight className="w-5 h-5" />
-</button>
+              <button
+                type="button"
+                onClick={scrollNext}
+                className="
+                  flex items-center justify-center
+                  absolute right-2 sm:right-0 top-1/2 -translate-y-1/2
+                  z-10
+                  w-9 h-9 sm:w-10 sm:h-10
+                  rounded-full
+                  bg-background/95 border border-border shadow-sm
+                  hover:bg-muted
+                  sm:translate-x-1/2
+                "
+                aria-label="Next"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
 
+              <div ref={emblaRef} className="overflow-hidden w-full">
+                <div className="flex -ml-4">
+                  {items.map((item, index) => {
+                    const resolvedPlatform = inferPlatform(item.url, item.platform as Platform);
 
-            <div ref={emblaRef} className="overflow-hidden w-full">
-              <div className="flex -ml-4">
-                {items.map((item, index) => {
-                  const resolvedPlatform = inferPlatform(item.url, item.platform as Platform);
-
-                  return (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, y: 14 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.35, delay: index * 0.05 }}
-                      className="
-                        pl-4
-                        flex-[0_0_88%]
-                        sm:flex-[0_0_50%]
-                        md:flex-[0_0_33.333%]
-                        lg:flex-[0_0_25%]
-                      "
-                    >
-                      <div className="rounded-2xl border border-border bg-background shadow-sm overflow-hidden">
-                        {/* Reel preview */}
-                        <div className="relative aspect-[9/16] bg-muted">
-                          {item.thumbnail ? (
-                            <img
-                              src={item.thumbnail}
-                              alt={item.product.title}
-                              className="w-full h-full object-cover"
-                              draggable={false}
-                            />
-                          ) : resolvedPlatform === 'local' ? (
-                            <video
-                              src={item.url}
-                              className="w-full h-full object-cover"
-                              muted
-                              playsInline
-                              loop
-                              autoPlay
-                              preload="metadata"
-                            />
-                          ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-muted to-secondary" />
-                          )}
-
-                          {/* Platform pill */}
-                          <div className="absolute top-3 left-3">
-                            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-background/90 border border-border">
-                              {platformLabel(resolvedPlatform)}
-                            </span>
-                          </div>
-
-                          {/* Badges */}
-                          <div className="absolute top-3 right-3 flex gap-2">
-                            {item.product.bestSeller && (
-                              <span className="bg-primary text-primary-foreground text-[11px] font-semibold px-2.5 py-1 rounded-full">
-                                Best Seller
-                              </span>
+                    return (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, y: 14 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.35, delay: index * 0.05 }}
+                        className="
+                          pl-4
+                          flex-[0_0_88%]
+                          sm:flex-[0_0_50%]
+                          md:flex-[0_0_33.333%]
+                          lg:flex-[0_0_25%]
+                        "
+                      >
+                        <div className="rounded-2xl border border-border bg-background shadow-sm overflow-hidden">
+                          {/* Reel preview */}
+                          <div className="relative aspect-[9/16] bg-muted">
+                            {item.thumbnail ? (
+                              <img
+                                src={item.thumbnail}
+                                alt={item.product.title}
+                                className="w-full h-full object-cover"
+                                draggable={false}
+                              />
+                            ) : resolvedPlatform === 'local' ? (
+                              <video
+                                src={item.url}
+                                className="w-full h-full object-cover"
+                                muted
+                                playsInline
+                                loop
+                                
+                                preload="metadata"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-gradient-to-br from-muted to-secondary" />
                             )}
-                            {item.product.isNew && (
-                              <span className="bg-foreground text-background text-[11px] font-semibold px-2.5 py-1 rounded-full">
-                                New
+
+                            {/* Platform pill */}
+                            {/* <div className="absolute top-3 left-3">
+                              <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-background/90 border border-border">
+                                {platformLabel(resolvedPlatform)}
                               </span>
-                            )}
-                          </div>
+                            </div> */}
 
-                          {/* Play */}
-                          <button
-                            type="button"
-                            onClick={() => setSelected(item)}
-                            className="absolute inset-0 flex items-center justify-center"
-                            aria-label="Play video"
-                          >
-                            <span className="w-14 h-14 rounded-full bg-background/85 border border-border flex items-center justify-center shadow-sm hover:scale-105 transition-transform">
-                              <Play className="w-6 h-6" />
-                            </span>
-                          </button>
-                        </div>
+                            {/* Badges */}
+                            <div className="absolute top-3 right-3 flex gap-2">
+                              {item.product.bestSeller && (
+                                <span className="bg-primary text-primary-foreground text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                                  Best Seller
+                                </span>
+                              )}
+                              {item.product.isNew && (
+                                <span className="bg-foreground text-background text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                                  New
+                                </span>
+                              )}
+                            </div>
 
-                        {/* Info + CTAs */}
-                        <div className="p-4">
-                          <div className="flex flex-wrap gap-2 mb-2">
-                            {item.product.tags.slice(0, 2).map((tag) => (
-                              <span
-                                key={tag}
-                                className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-
-                          <h3 className="font-semibold text-foreground leading-snug truncate">
-                            {item.product.title}
-                          </h3>
-
-                          {/* <div className="mt-1 flex items-baseline justify-between gap-3">
-                            <span className="text-sm md:text-base font-bold text-primary">
-                              ₹{item.product.priceFrom.toLocaleString()}+
-                            </span>
-                            <span className="text-xs text-muted-foreground">{item.product.deliveryTime}</span>
-                          </div> */}
-
-                          <div className="mt-4 flex gap-2">
-                            <Link to={`/product/${item.product.slug}`} className="flex-1">
-                              <Button variant="hero" size="default" className="w-full">
-                                View
-                              </Button>
-                            </Link>
-
-                            <Button
+                            {/* Play */}
+                            <button
                               type="button"
-                              variant="whatsapp"
-                              size="default"
-                              className="flex-1"
-                              onClick={() => handleWhatsAppEnquiry(item.product)}
+                              onClick={() => setSelected(item)}
+                              className="absolute inset-0 flex items-center justify-center"
+                              aria-label="Play video"
                             >
-                              WhatsApp
-                            </Button>
+                              <span className="w-14 h-14 rounded-full bg-background/85 border border-border flex items-center justify-center shadow-sm hover:scale-105 transition-transform">
+                                <Play className="w-6 h-6" />
+                              </span>
+                            </button>
+                          </div>
+
+                          {/* Info + CTAs */}
+                          <div className="p-4">
+                            <div className="flex flex-wrap gap-2 mb-2">
+                              {item.product.tags.slice(0, 2).map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+
+                            <h3 className="font-semibold text-foreground leading-snug truncate">
+                              {item.product.title}
+                            </h3>
+
+                            <div className="mt-4 flex gap-2">
+                              <Button asChild variant="hero" size="default" className="w-full flex-1">
+                                <Link to={`/product/${item.product.slug}`}>View</Link>
+                              </Button>
+
+                              <Button
+                                type="button"
+                                variant="whatsapp"
+                                size="default"
+                                className="flex-1"
+                                onClick={() => handleWhatsAppEnquiry(item.product)}
+                              >
+                                WhatsApp
+                              </Button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Mobile arrows */}
-          {/* <div className="md:hidden flex justify-between mt-5">
-            <Button variant="ctaOutline" onClick={scrollPrev} className="gap-2">
-              <ChevronLeft className="w-4 h-4" />
-              Prev
-            </Button>
-            <Button variant="ctaOutline" onClick={scrollNext} className="gap-2">
-              Next
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-          </div> */}
         </div>
-      </div>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {selected && (
-          <TrendingModal
-            selected={selected}
-            onClose={() => setSelected(null)}
-            onWhatsApp={handleWhatsAppEnquiry}
-          />
-        )}
-      </AnimatePresence>
-    </section>
+        {/* Modal */}
+        <AnimatePresence>
+          {selected && (
+            <TrendingModal
+              selected={selected}
+              onClose={() => setSelected(null)}
+              onWhatsApp={handleWhatsAppEnquiry}
+            />
+          )}
+        </AnimatePresence>
+      </section>
+    </AuroraBackground>
   );
 }
 
@@ -437,24 +417,29 @@ function TrendingModal({
   const resolvedPlatform = inferPlatform(selected.url, selected.platform as Platform);
   const embedSrc = resolvedPlatform === 'local' ? null : getEmbedSrc(resolvedPlatform, selected.url);
 
-  // Only used for Instagram
   const instaReady = useInstagramEmbed(resolvedPlatform === 'instagram' ? selected.url : null);
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 bg-foreground/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={onClose}
     >
+      <div
+        className="absolute inset-0 bg-foreground/70 backdrop-blur-sm"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
       <motion.div
-        className="relative w-full max-w-[380px] sm:max-w-[420px] bg-background rounded-2xl overflow-hidden border border-border shadow-xl flex flex-col"
+        className="relative z-10 w-full max-w-[380px] sm:max-w-[420px] bg-background rounded-2xl overflow-hidden border border-border shadow-xl flex flex-col"
         style={{ maxHeight: 'calc(100vh - 24px)' }}
         initial={{ y: 16, scale: 0.98, opacity: 0 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
         exit={{ y: 16, scale: 0.98, opacity: 0 }}
         transition={{ duration: 0.18 }}
+        onMouseDown={(e) => e.stopPropagation()}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -480,12 +465,11 @@ function TrendingModal({
               src={selected.url}
               className="w-full h-full object-contain"
               controls
-              autoPlay
+              
               playsInline
             />
           ) : resolvedPlatform === 'instagram' ? (
             <div className="w-full h-full bg-white overflow-auto">
-              {/* Instagram official embed */}
               <div className="p-2">
                 <blockquote
                   className="instagram-media"
@@ -504,7 +488,7 @@ function TrendingModal({
             <iframe
               src={embedSrc}
               className="w-full h-full"
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              allow=" clipboard-write; encrypted-media; picture-in-picture; web-share"
               allowFullScreen
               loading="lazy"
               title="Video Preview"
@@ -522,14 +506,18 @@ function TrendingModal({
         </div>
 
         {/* Footer */}
-        <div className="shrink-0 px-4 py-3 border-t border-border bg-background">
+        <div className="relative z-10 shrink-0 px-4 py-3 border-t border-border bg-background">
           <div className="flex gap-2">
-            <Link to={`/product/${selected.product.slug}`} className="flex-1">
-              <Button variant="hero" className="w-full">
-                View
-              </Button>
-            </Link>
-            <Button type="button" variant="whatsapp" className="flex-1" onClick={() => onWhatsApp(selected.product)}>
+            <Button asChild variant="hero" className="w-full flex-1">
+              <Link to={`/product/${selected.product.slug}`}>View</Link>
+            </Button>
+
+            <Button
+              type="button"
+              variant="whatsapp"
+              className="flex-1"
+              onClick={() => onWhatsApp(selected.product)}
+            >
               WhatsApp
             </Button>
           </div>

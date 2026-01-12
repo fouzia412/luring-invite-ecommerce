@@ -60,7 +60,11 @@ const features = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-10 bg-gradient-to-b from-background via-background/95 to-muted/30 relative overflow-hidden">
+    <section 
+    className="relative py-10 overflow-hidden bg-cover bg-center bg-no-repeat"
+  style={{
+    backgroundImage: "url('/images/1-4.webp')",
+  }}>
       {/* Very soft background decoration */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-[#A86DCD]/10 to-transparent rounded-full blur-3xl" />

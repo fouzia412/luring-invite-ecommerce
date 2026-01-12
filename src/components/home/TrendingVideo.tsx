@@ -202,7 +202,7 @@ export default function TrendingVideo() {
       className="h-auto min-h-0 w-full items-stretch justify-start py-0 "
       showRadialGradient={true}
     >
-      <section className="section-padding w-full">
+      <section className="section-padding w-full relative z-10">
         <div className="container-custom">
           {/* Header */}
           <motion.div

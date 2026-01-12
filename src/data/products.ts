@@ -615,45 +615,56 @@ export const processSteps = [
 export const testimonials = [
   {
     id: 1,
-    name: 'Priya & Rahul',
-    location: 'Hyderabad',
-    text: 'The AI video invitation was beyond our expectations! Our guests were amazed by the quality.',
+    name: "Priya & Rahul",
+    location: "Hyderabad",
+    text: "The AI video invitation was beyond our expectations! Our guests were amazed by the quality.",
     rating: 5,
-    occasion: 'Wedding',
+    occasion: "Wedding",
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80",
   },
   {
     id: 2,
-    name: 'Sneha Reddy',
-    location: 'Vijayawada',
-    text: 'Quick delivery and beautiful design. The team was very responsive to our requirements.',
+    name: "Sneha Reddy",
+    location: "Vijayawada",
+    text: "Quick delivery and beautiful design. The team was very responsive to our requirements.",
     rating: 5,
-    occasion: 'Anniversary',
+    occasion: "Anniversary",
+    image:
+      "https://images.unsplash.com/photo-1524503033411-f8f36b4cfcfd?auto=format&fit=crop&w=1400&q=80",
   },
   {
     id: 3,
-    name: 'Karthik & Divya',
-    location: 'Chennai',
-    text: 'The caricature invitation was a hit! Everyone loved the personal touch.',
+    name: "Karthik & Divya",
+    location: "Chennai",
+    text: "The caricature invitation was a hit! Everyone loved the personal touch.",
     rating: 5,
-    occasion: 'Wedding',
+    occasion: "Wedding",
+    image:
+      "https://images.unsplash.com/photo-1525134479668-1bee5c7c6845?auto=format&fit=crop&w=1400&q=80",
   },
   {
     id: 4,
-    name: 'Lakshmi Devi',
-    location: 'Bangalore',
-    text: 'Perfect for our house warming ceremony. Traditional yet modern design.',
+    name: "Lakshmi Devi",
+    location: "Bangalore",
+    text: "Perfect for our house warming ceremony. Traditional yet modern design.",
     rating: 5,
-    occasion: 'House Warming',
+    occasion: "House Warming",
+    image:
+      "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?auto=format&fit=crop&w=1400&q=80",
   },
   {
     id: 5,
-    name: 'Suresh & Padma',
-    location: 'Guntur',
-    text: 'The storyboard video brought tears to our eyes. Beautifully crafted love story.',
+    name: "Suresh & Padma",
+    location: "Guntur",
+    text: "The storyboard video brought tears to our eyes. Beautifully crafted love story.",
     rating: 5,
-    occasion: 'Wedding',
+    occasion: "Wedding",
+    image:
+      "https://images.unsplash.com/photo-1524502585761-6c2b7e06b5ad?auto=format&fit=crop&w=1400&q=80",
   },
 ];
+
 
 export const faqs = [
   {

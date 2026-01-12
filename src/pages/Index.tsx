@@ -1,36 +1,31 @@
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
-import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp'
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 
-import CategoriesCarousel from '@/components/home/CategoriesCarousel'
-import BestSellersCarousel from '@/components/home/BestSellersCarousel'
-import WhyChooseUs from '@/components/home/WhyChooseUs'
-import ProcessScrollSection from '@/components/home/ProcessScrollSection'
-import ShowcaseParallax from '@/components/home/ShowcaseParallax'
-import TestimonialsSection from '@/components/home/TestimonialsSection'
-import FAQPreview from '@/components/home/FAQPreview'
-import StatsCounter from '@/components/home/StatsCounter'
-import ServicesSection from '@/components/home/ServicesSection'
-import ContactFormSection from '@/components/home/ContactFormSection'
-import TrendingVideo from '@/components/home/TrendingVideo'
-import CollectionCarousel from '@/components/home/CollectionCarousel'
+import CategoriesCarousel from "@/components/home/CategoriesCarousel";
+import BestSellersCarousel from "@/components/home/BestSellersCarousel";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import ProcessScrollSection from "@/components/home/ProcessScrollSection";
+import ShowcaseParallax from "@/components/home/ShowcaseParallax";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
+import FAQPreview from "@/components/home/FAQPreview";
+import StatsCounter from "@/components/home/StatsCounter";
+import ServicesSection from "@/components/home/ServicesSection";
+import ContactFormSection from "@/components/home/ContactFormSection";
+import TrendingVideo from "@/components/home/TrendingVideo";
+import CollectionCarousel from "@/components/home/CollectionCarousel";
 
-import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero'
-import { PixelTrail } from '@/components/ui/pixel-trail'
-import { useScreenSize } from '@/hooks/use-screen-size'
+import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
+import MouseButterflyTrail from "@/components/ui/MouseButterflyTrail";
+import { useScreenSize } from "@/hooks/use-screen-size";
 
 const Index = () => {
-  const screenSize = useScreenSize()
+  const screenSize = useScreenSize();
 
   return (
-    <div className="relative min-h-screen bg-background overflow-hidden">
+    <div className="relative min-h-screen bg-background">
       {/* 🌸 Full-page Butterfly Trail */}
-      <PixelTrail
-        pixelSize={screenSize.lessThan('md') ? 36 : 56}
-        fadeDuration={600}
-        delay={1200}
-        className="fixed inset-0 z-0 pointer-events-none"
-      />
+      <MouseButterflyTrail size={300} gifSrc="/images/Butterfly-2.gif" />
 
       {/* Site UI */}
       <Header />
@@ -62,7 +57,7 @@ const Index = () => {
       <Footer />
       <FloatingWhatsApp />
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

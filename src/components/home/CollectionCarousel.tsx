@@ -5,7 +5,6 @@ import { collections } from "@/data/products";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { PixelTrail } from "@/components/ui/pixel-trail";
 import { useScreenSize } from "@/hooks/use-screen-size";
 
 export default function CategoriesCarousel() {
@@ -69,12 +68,7 @@ export default function CategoriesCarousel() {
   style={{
     backgroundImage: "url('/images/luringbg.webp')",
   }}>
-      <PixelTrail
-        pixelSize={screenSize.lessThan("md") ? 40 : 64}
-        fadeDuration={600}
-        delay={800}
-        className="z-0"
-      />
+     
 
       <div className="container-custom relative z-10">
         <motion.div

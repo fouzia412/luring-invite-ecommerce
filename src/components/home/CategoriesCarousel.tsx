@@ -1,18 +1,17 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { categories, collections } from '@/data/products';
-import useEmblaCarousel from 'embla-carousel-react';
-import { useCallback, useEffect, useState } from 'react';
-import { PixelTrail } from "@/components/ui/pixel-trail"
-import { useScreenSize } from "@/hooks/use-screen-size"
-
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { categories, collections } from "@/data/products";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect, useState } from "react";
+// import { PixelTrail } from "@/components/ui/MouseButterflyTrail";
+import { useScreenSize } from "@/hooks/use-screen-size";
 
 export default function CategoriesCarousel() {
-   const screenSize = useScreenSize()
+  const screenSize = useScreenSize();
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    align: 'start',
+    align: "start",
     slidesToScroll: 1,
   });
 
@@ -20,7 +19,6 @@ export default function CategoriesCarousel() {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
- 
 
   const updateNavState = useCallback(() => {
     if (!emblaApi) return;
@@ -50,25 +48,26 @@ export default function CategoriesCarousel() {
     setScrollSnaps(emblaApi.scrollSnapList().map((_, i) => i));
     updateNavState();
 
-    emblaApi.on('select', updateNavState);
-    emblaApi.on('reInit', () => {
+    emblaApi.on("select", updateNavState);
+    emblaApi.on("reInit", () => {
       setScrollSnaps(emblaApi.scrollSnapList().map((_, i) => i));
       updateNavState();
     });
   }, [emblaApi, updateNavState]);
 
   return (
-    <section 
-    className="section-padding relative overflow-hidden bg-cover bg-center bg-no-repeat"
-  style={{
-    backgroundImage: "url('/images/luringbg.webp')",
-  }}>
-      <PixelTrail
-  pixelSize={screenSize.lessThan("md") ? 40 : 64}
-  fadeDuration={600}
-  delay={1200}
-  className="z-0"
-/>
+    <section
+      className="section-padding relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: "url('/images/luringbg.webp')",
+      }}
+    >
+      {/* <PixelTrail
+        pixelSize={screenSize.lessThan("md") ? 40 : 64}
+        fadeDuration={600}
+        delay={1200}
+        className="z-0"
+      /> */}
 
       <div className="container-custom relative z-10">
         <motion.div
@@ -82,7 +81,8 @@ export default function CategoriesCarousel() {
             Explore Our <span className="text-primary">Collections</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            From AI-powered video invitations to elegant digital designs, find the perfect invitation for your special occasion.
+            From AI-powered video invitations to elegant digital designs, find
+            the perfect invitation for your special occasion.
           </p>
         </motion.div>
 
@@ -110,7 +110,9 @@ export default function CategoriesCarousel() {
                   <h3 className="font-heading text-2xl md:text-3xl text-background mb-2">
                     {category.title}
                   </h3>
-                  <p className="text-background/80 text-sm mb-4">{category.description}</p>
+                  <p className="text-background/80 text-sm mb-4">
+                    {category.description}
+                  </p>
                   <div className="flex items-center gap-2 text-primary font-medium">
                     <span>View Collection</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
@@ -120,8 +122,6 @@ export default function CategoriesCarousel() {
             </motion.div>
           ))}
         </div>
-
-
       </div>
     </section>
   );

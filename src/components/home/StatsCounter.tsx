@@ -11,7 +11,7 @@ const stats: Stat[] = [
   { value: 3, suffix: '+', label: 'Years Experience' },
   { value: 5000, suffix: '+', label: 'Design Templates' },
   { value: 99.9, suffix: '%', label: 'Client Satisfaction' },
-  { value: 100, suffix: '+', label: 'Happy Couples' }, 
+  { value: 300, suffix: '+', label: 'Happy Couples' }, 
 ];
 
 function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
@@ -102,7 +102,7 @@ export default function StatsCounter() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="text-center p-4 md:p-6"
+              className="text-center p-4 md:p-6 font-semibold"
             >
               <AnimatedNumber value={stat.value} suffix={stat.suffix} />
               <p className="text-background/80 mt-2 text-sm md:text-base font-medium">{stat.label}</p>

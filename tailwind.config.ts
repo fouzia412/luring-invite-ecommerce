@@ -40,7 +40,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Lobster", "sans-serif"],
+        heading: ["Pinyon Script", "sans-serif"],
+        subheading: ["Ysabeau", "sans-serif"],
         body: ["Outfit", "sans-serif"],
       },
       colors: {

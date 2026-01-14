@@ -40,3 +40,30 @@
 .read-the-docs {
   color: #888;
 }
+/* src/App.css - add at the bottom */
+
+/* Butterfly cursor for the entire app */
+html,
+body,
+#root {
+  cursor: url('/cursors/cursors.gif') 32 32, auto;
+}
+
+/* Better experience for interactive elements */
+a,
+button,
+input,
+select,
+textarea,
+label,
+[role="button"],
+.cursor-pointer,
+.logo:hover,
+.logo:focus {
+  cursor: url('/cursors/cursors.gif') 32, pointer;
+}
+
+/* Optional: Slightly bigger version for headings/links */
+.cursor-big {
+  cursor: url('/cursors/cursors.gif') 24 24, pointer;
+}

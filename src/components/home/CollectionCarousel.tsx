@@ -66,7 +66,7 @@ export default function CategoriesCarousel() {
     <section 
     className="section-padding relative overflow-hidden bg-cover bg-center bg-no-repeat"
   style={{
-    backgroundImage: "url('/images/luringbg.webp')",
+    backgroundImage: "url('/images/luringbg1.webp')",
   }}>
      
 

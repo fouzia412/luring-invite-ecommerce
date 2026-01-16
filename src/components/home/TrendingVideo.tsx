@@ -289,7 +289,7 @@ export default function TrendingVideo() {
                   Trending Now
                 </span>
               </div>
-              <h2 className="font-heading text-3xl md:text-4xl text-foreground">
+              <h2 className="font-heading text-3xl md:text-4xl text-foreground font-bold">
                 Trending Videos
               </h2>
             </div>

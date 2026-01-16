@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
-import { CircularTestimonials, type Testimonial } from "@/components/ui/circular-testimonials";
+import {
+  CircularTestimonials,
+  type Testimonial,
+} from "@/components/ui/circular-testimonials";
 import { testimonials } from "@/data/products";
 
 export default function TestimonialsSection() {
@@ -21,11 +24,12 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 font-bold">
             What Our Clients Say
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Real stories from couples who made their celebrations unforgettable with our invitations.
+            Real stories from couples who made their celebrations unforgettable
+            with our invitations.
           </p>
         </motion.div>
 

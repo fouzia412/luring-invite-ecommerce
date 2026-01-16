@@ -17,8 +17,8 @@ const InviteCard = () => {
         <div className="w-full md:w-[65%] p-4 md:p-10 flex flex-col h-full min-h-0">
 
           {/* ✅ Scrollable content only (footer stays fixed) */}
-          <div className="flex-1 min-h-0 overflow-y-auto pr-2 md:pr-0">
-            <h3 className="font-display text-xl md:text-3xl text-primary mb-3 md:mb-6">
+          <div className="flex-1 min-h-0 sm:overflow-y-auto pr-2 md:pr-0">
+            <h3 className="font-display text-xl md:text-3xl text-primary mb-3 md:mb-6 font-bold">
               Know Us Well!
             </h3>
 
@@ -42,7 +42,7 @@ const InviteCard = () => {
 
           {/* ✅ Footer always visible */}
           <div className="shrink-0 border-t border-border/40 pt-4 md:pt-6 mt-4">
-            <h2 className="font-display text-xl md:text-3xl text-primary">
+            <h2 className="font-display text-xl md:text-3xl text-primary font-bold">
               Gurleen Kaur
             </h2>
             <p className="text-xs uppercase tracking-widest text-muted-foreground mt-1">

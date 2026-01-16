@@ -153,7 +153,7 @@ export default function CollectionDetail() {
           )}
         </div>
 
-        <ContactFormSection variant="full" />
+        {/* <ContactFormSection variant="full" /> */}
       </main>
       <Footer />
       <FloatingWhatsApp />

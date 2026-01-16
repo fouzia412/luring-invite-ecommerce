@@ -69,9 +69,6 @@ const InviteSection: React.FC = () => {
       rotate: 0,
     });
 
-    // 3. Card Initial Position
-    // CHANGED: Added autoAlpha (opacity + visibility).
-    // On mobile, autoAlpha is 0 initially so the card is completely hidden.
     gsap.set(card, {
       y: isMobile ? 100 : 100, 
       scale: isMobile ? 0.9 : 0.95, // Adjusted mobile scale slightly up since InviteCard is now fluid
@@ -84,7 +81,7 @@ const InviteSection: React.FC = () => {
         paused: true,
         scrollTrigger: {
           trigger: section,
-          start: "center center",
+          start: "center top",
           end: "+=100",
           pin: true,
           scrub: false,
@@ -94,7 +91,6 @@ const InviteSection: React.FC = () => {
       });
 
       timelineRef.current = tl;
-      tl.timeScale(isMobile ? 0.5 : 1.0);
 
       // === ANIMATION SEQUENCE === //
 
@@ -105,11 +101,11 @@ const InviteSection: React.FC = () => {
         .to(shadow, { opacity: 0.14, duration: 0.5 }, 0.2);
 
       // 2. Settle Flap
-      tl.to(flap, { attr: { points: FLAP_OPEN_SETTLE }, duration: 0.4, ease: "power2.out" }, 1.5)
-        .to(seam, { attr: { points: SEAM_OPEN_SETTLE }, duration: 0.4, ease: "power2.out" }, 1.5);
+      tl.to(flap, { attr: { points: FLAP_OPEN_SETTLE }, duration: 0.4, ease: "power2.out" }, 0.5)
+        .to(seam, { attr: { points: SEAM_OPEN_SETTLE }, duration: 0.4, ease: "power2.out" }, 0.5);
 
       // 3. Send Flap to Back
-      tl.set(flapContainer, { zIndex: 0 }, 2.2);
+      tl.set(flapContainer, { zIndex: 0 }, 0.5);
 
       // 4. Extract Card UP
       const wrapH = wrap.getBoundingClientRect().height;
@@ -132,7 +128,7 @@ const extractionY = isMobile ? -(wrapH * 0.9) : -380;
       }
 
       // 5. Swap Z-Index
-      tl.set(card, { zIndex: 40 }, 4.0);
+      tl.set(card, { zIndex: 40 }, 3.0);
 
       // 6. Present Card DOWN & Full Scale
       tl.to(card, {
@@ -140,7 +136,7 @@ const extractionY = isMobile ? -(wrapH * 0.9) : -380;
         scale: 1, 
         duration: 0.8,
         ease: "back.out(0.8)",
-      }, 4.0);
+      }, 3.0);
 
     }, sectionRef);
 

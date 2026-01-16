@@ -151,8 +151,9 @@ export default function ServicesPage() {
           className="max-w-4xl mx-auto text-center px-4"
         >
           <h1 className="text-4xl sm:text-6xl font-bold">
-            Our <span className="text-[#A86DCD]">Wedding</span> Services
+            What We <span className="text-[#A86DCD]">Offer</span>
           </h1>
+
           <p className="mt-6 text-base sm:text-xl text-muted-foreground">
             Invitations, stationery, and keepsakes — crafted with love and
             precision.
@@ -161,8 +162,8 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="">
+        <div className="container mx-auto px-5 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 justify-items-center">
             {services.map((service, index) => (
               <motion.div
@@ -218,14 +219,14 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-muted/30 text-center px-4">
+      <section className="py-10 bg-muted/30 text-center px-4">
         <h2 className="text-3xl sm:text-4xl font-bold mb-6">
           Let’s create something unforgettable
         </h2>
         <Link to="/contact">
           <Button
             size="lg"
-            className="px-10 py-7 text-lg bg-[#A86DCD] hover:bg-[#A86DCD]/90 shadow-xl"
+            className="px-10 text-lg bg-[#A86DCD] hover:bg-[#A86DCD]/90 shadow-xl"
           >
             Contact Us
           </Button>

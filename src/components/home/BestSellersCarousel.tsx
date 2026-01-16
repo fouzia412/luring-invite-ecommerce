@@ -272,7 +272,7 @@ export default function BestSellersCarousel() {
                   Trending Now
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-heading text-foreground">
+              <h2 className="text-3xl md:text-4xl font-heading text-foreground font-bold">
                 Instagram Feed
               </h2>
             </div>
@@ -288,12 +288,6 @@ export default function BestSellersCarousel() {
             </div>
           </motion.div>
 
-          {/* CAROUSEL */}
-          {/* ✅ Key fix for arrow alignment:
-              - make wrapper full width
-              - add responsive side padding so arrows sit correctly on mobile
-              - use absolute arrows with translate on md+ only
-           */}
           <div className="relative w-full">
             {/* Prev */}
             <button
@@ -335,7 +329,6 @@ export default function BestSellersCarousel() {
               <ChevronRight className="w-5 h-5" />
             </button>
 
-            {/* ✅ add padding so arrows NEVER overlap/cut off content */}
             <div className="px-4 sm:px-6 md:px-0">
               <div ref={emblaRef} className="overflow-hidden w-full">
                 <div className="flex gap-4 md:gap-6 items-stretch">
@@ -417,7 +410,7 @@ export default function BestSellersCarousel() {
                           </div>
 
                           <div className="p-4">
-                            <h3 className="font-normal text-foreground line-clamp-1">
+                            <h3 className="font-normal text-foreground line-clamp-1 font-semibold">
                               {product.title}
                             </h3>
                           </div>

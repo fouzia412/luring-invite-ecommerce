@@ -60,11 +60,12 @@ const features = [
 
 export default function WhyChooseUs() {
   return (
-    <section 
-    className="relative py-10 overflow-hidden bg-cover bg-center bg-no-repeat"
-  style={{
-    backgroundImage: "url('/images/1-4.webp')",
-  }}>
+    <section
+      className="relative py-10 overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: "url('/images/1-4.webp')",
+      }}
+    >
       {/* Very soft background decoration */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-[#A86DCD]/10 to-transparent rounded-full blur-3xl" />
@@ -80,7 +81,7 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 md:mb-20"
         >
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 font-bold">
             Why Choose <span className="text-primary">Luring Invite?</span>
           </h2>
           <p className="mt-5 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -152,7 +153,7 @@ export default function WhyChooseUs() {
                     </div>
 
                     {/* Text content */}
-                    <h3 className="font-display text-2xl   text-center  mb-2 text-gray-900">
+                    <h3 className="font-display text-2xl font-semibold   text-center  mb-2 text-gray-600">
                       {feature.title}
                     </h3>
 

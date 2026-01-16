@@ -40,9 +40,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Pinyon Script", "sans-serif"],
-        subheading: ["Ysabeau", "sans-serif"],
-        body: ["Outfit", "sans-serif"],
+        heading: ["SnellRoundhand Script", "sans-serif"],
+        subheading: ["SnellRoundhand Script", "sans-serif"],
+        body: ["Ysabeau", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

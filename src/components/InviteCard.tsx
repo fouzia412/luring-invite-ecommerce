@@ -1,10 +1,11 @@
+// src/components/InviteCard.tsx
 const InviteCard = () => {
   return (
-    <div className="w-[820px] h-[520px] bg-white rounded-lg  border border-border/30 overflow-hidden relative">
-      <div className="flex h-full">
-        
-        {/* Decorative side */}
-        <div className="w-[35%] overflow-hidden">
+    <div className="w-full h-full md:w-[820px] md:h-[520px] bg-white rounded-lg border border-border/30 overflow-hidden">
+      <div className="flex flex-col md:flex-row h-full">
+
+        {/* Decorative side (shows on mobile at top) */}
+        <div className="w-full md:w-[35%] h-[180px] md:h-full shrink-0 overflow-hidden flex items-center justify-center">
           <img
             src="/images/gurleen.png"
             alt="Decorative side"
@@ -13,15 +14,14 @@ const InviteCard = () => {
         </div>
 
         {/* Content Side */}
-        <div className="w-[65%] p-10 flex flex-col justify-between">
-          
-          <div>
-            {/* Heading */}
-            <h3 className="font-display text-3xl text-orimary mb-6">
+        <div className="w-full md:w-[65%] p-4 md:p-10 flex flex-col h-full min-h-0">
+
+          {/* ✅ Scrollable content only (footer stays fixed) */}
+          <div className="flex-1 min-h-0 overflow-y-auto pr-2 md:pr-0">
+            <h3 className="font-display text-xl md:text-3xl text-primary mb-3 md:mb-6">
               Know Us Well!
             </h3>
 
-            {/* Description */}
             <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
               Welcome to Outright's Luring Invite, where dreams meet innovation,
               and every occasion becomes a cherished memory. Founded under the
@@ -40,11 +40,11 @@ const InviteCard = () => {
             </p>
           </div>
 
-          {/* Footer */}
-          <div className=" border-t border-border/40 pt-6">
-            <p className="font-display text-3xl text-primary">
+          {/* ✅ Footer always visible */}
+          <div className="shrink-0 border-t border-border/40 pt-4 md:pt-6 mt-4">
+            <h2 className="font-display text-xl md:text-3xl text-primary">
               Gurleen Kaur
-            </p>
+            </h2>
             <p className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
               Founder & Director
             </p>

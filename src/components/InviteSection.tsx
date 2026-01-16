@@ -19,6 +19,7 @@ const SEAM_OPEN_SETTLE = FLAP_OPEN_SETTLE;
 const InviteSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   // SVG Refs
   const flapRef = useRef<SVGPolygonElement>(null);
@@ -27,9 +28,18 @@ const InviteSection: React.FC = () => {
 
   // Layer Refs
   const cardRef = useRef<HTMLDivElement>(null);
-  const flapContainerRef = useRef<HTMLDivElement>(null); // To control Z-index of flap
+  const flapContainerRef = useRef<HTMLDivElement>(null);
+
+  // Seal (logo sticker) ref
+  const sealRef = useRef<HTMLButtonElement>(null);
 
   const isMobile = useIsMobile();
+
+  const handleSealClick = () => {
+    if (timelineRef.current) {
+      timelineRef.current.play();
+    }
+  };
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -39,167 +49,165 @@ const InviteSection: React.FC = () => {
     const shadow = flapShadowRef.current;
     const card = cardRef.current;
     const flapContainer = flapContainerRef.current;
+    const seal = sealRef.current;
 
-    if (!section || !wrap || !flap || !seam || !shadow || !card || !flapContainer) return;
+    if (!section || !wrap || !flap || !seam || !shadow || !card || !flapContainer || !seal) return;
 
-    // --- INITIAL STATE ---
-    // 1. Envelope Flap Closed
+    // --- INITIAL STATE (RESET) ---
+
+    // 1. Envelope Parts
     gsap.set(flap, { attr: { points: FLAP_CLOSED } });
     gsap.set(seam, { attr: { points: SEAM_CLOSED } });
-    
-    // 2. Flap is on top (z-index 30)
     gsap.set(flapContainer, { zIndex: 30 });
+    gsap.set(shadow, { opacity: 0 });
+    gsap.set(wrap, { clearProps: "transformPerspective, rotateX, transformStyle" });
 
-    // 3. Card is Hidden Inside (y shifted down, z-index 10)
-    gsap.set(card, {
-      y: 100, // Sitting deep in the pocket
-      scale: 0.95,
-      zIndex: 10, // Between Back (0) and Pocket (20)
+    // 2. Seal
+    gsap.set(seal, {
+      scale: isMobile ? 0.8 : 1,
+      opacity: 1,
+      rotate: 0,
     });
 
-    gsap.set(shadow, { opacity: 0 });
-
-    // 4. Initial Tilt of the whole envelope
-    gsap.set(wrap, {
-      transformPerspective: 1200,
-      transformStyle: "preserve-3d",
-      rotateX: 10,
+    // 3. Card Initial Position
+    // CHANGED: Added autoAlpha (opacity + visibility).
+    // On mobile, autoAlpha is 0 initially so the card is completely hidden.
+    gsap.set(card, {
+      y: isMobile ? 100 : 100, 
+      scale: isMobile ? 0.9 : 0.95, // Adjusted mobile scale slightly up since InviteCard is now fluid
+      zIndex: 10,
+      autoAlpha: isMobile ? 0 : 1, // <--- HIDDEN INITIALLY ON MOBILE
     });
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
+        paused: true,
         scrollTrigger: {
           trigger: section,
-          start: "top top",
-          end: isMobile ? "+=200%" : "+=300%",
-          scrub: 1.5,
+          start: "center center",
+          end: "+=100",
           pin: true,
-          anticipatePin: 1,
+          scrub: false,
+          once: true,
+          toggleActions: "play none none none",
         },
       });
 
-      // === PHASE 1: OPENING === //
+      timelineRef.current = tl;
 
-      // Tilt envelope for better view
-      tl.to(wrap, { rotateX: 15, duration: 0.8 }, 0);
+      // === ANIMATION SEQUENCE === //
 
-      // Open Flap
-      tl.to(flap, { attr: { points: FLAP_OPEN_OVERSHOOT }, duration: 1, ease: "power2.inOut" }, 0)
-        .to(seam, { attr: { points: SEAM_OPEN_OVERSHOOT }, duration: 1, ease: "power2.inOut" }, 0)
-        .to(flap, { attr: { points: FLAP_OPEN_SETTLE }, duration: 0.4, ease: "power2.out" }, 1)
-        .to(seam, { attr: { points: SEAM_OPEN_SETTLE }, duration: 0.4, ease: "power2.out" }, 1);
-      
-      // Shadow appears inside
-      tl.to(shadow, { opacity: 0.14, duration: 0.6 }, 0.5);
+      // 1. Open Flap
+      tl.to(flap, { attr: { points: FLAP_OPEN_OVERSHOOT }, duration: 1.5, ease: "power2.inOut" }, 0)
+        .to(seam, { attr: { points: SEAM_OPEN_OVERSHOOT }, duration: 1.5, ease: "power2.inOut" }, 0)
+        .to(seal, { scale: 1.2, opacity: 0, duration: 1.0 }, 0)
+        .to(shadow, { opacity: 0.14, duration: 1.0 }, 0.5);
 
-      // CRITICAL: Once flap is open, move it behind the card visually for the extraction
-      // We do this by changing the z-index of the flap container
-      tl.set(flapContainer, { zIndex: 0 }, 0.8);
+      // 2. Settle Flap
+      tl.to(flap, { attr: { points: FLAP_OPEN_SETTLE }, duration: 0.8, ease: "power2.out" }, 1.5)
+        .to(seam, { attr: { points: SEAM_OPEN_SETTLE }, duration: 0.8, ease: "power2.out" }, 1.5);
 
-      // === PHASE 2: EXTRACTION === //
+      // 3. Send Flap to Back
+      tl.set(flapContainer, { zIndex: 0 }, 2.2);
 
-      // 1. Slide Card UP (still inside pocket, z-10)
+      // 4. Extract Card UP
+      const wrapH = wrap.getBoundingClientRect().height;
+const extractionY = isMobile ? -(wrapH * 0.9) : -380;
+
+
       tl.to(card, {
-        y: -350, // Move it HIGH enough to clear the pocket visual
+        y: extractionY,
         duration: 1.8,
         ease: "power3.inOut",
-      }, 0.8);
+      }, 2.2);
 
-      // 2. MAGIC SWITCH: When card is at peak, bring it to front (z-40)
-      // This happens instantly in the middle of the scrub
-      tl.set(card, { zIndex: 40 }, 1.8);
+      // CHANGED: Fade IN card on mobile as it extracts
+      if (isMobile) {
+        tl.to(card, { 
+            autoAlpha: 1, 
+            duration: 0.6, 
+            ease: "power2.in" 
+        }, 2.4); // Start showing it just as it clears the pocket lip
+      }
 
-      // 3. Slide Card DOWN & Scale UP (now covering the pocket)
+      // 5. Swap Z-Index
+      tl.set(card, { zIndex: 40 }, 4.0);
+
+      // 6. Present Card DOWN & Full Scale
       tl.to(card, {
-        y: 100, // Center it
-        scale: 1,
-        //boxShadow: "0px 20px 40px rgba(0,0,0,0.3)", // Add drop shadow for depth
-        duration: 1.2,
-        ease: "power2.out",
-      }, 1.8);
-
-      // Flatten envelope rotation
-      tl.to(wrap, { rotateX: 0, duration: 1 }, 1.8);
-
-
-      // === PHASE 3: CLOSING (Reverse Logic) === //
-
-      // 1. Slide Card UP again
-      tl.to(card, {
-        y: -350,
-        scale: 0.95,
-        boxShadow: "none",
-        duration: 1.2,
-        ease: "power2.in",
-      }, 3.5);
-
-      // 2. MAGIC SWITCH BACK: Put card back inside (z-10)
-      tl.set(card, { zIndex: 10 }, 4.6);
-
-      // 3. Slide Card DOWN into pocket
-      tl.to(card, {
-        y: 100,
-        duration: 1.2,
-        ease: "power3.out",
-      }, 4.7);
-
-      // 4. Bring Flap to front to close it
-      tl.set(flapContainer, { zIndex: 30 }, 5.0);
-
-      // 5. Close Flap
-      tl.to(flap, { attr: { points: FLAP_CLOSED }, duration: 1, ease: "power2.inOut" }, 5.2)
-        .to(seam, { attr: { points: SEAM_CLOSED }, duration: 1, ease: "power2.inOut" }, 5.2);
-
-      tl.to(shadow, { opacity: 0, duration: 0.5 }, 5.5);
-      tl.to(wrap, { rotateX: 10, duration: 0.8 }, 5.5);
+        y: 0, 
+        scale: 1, 
+        duration: 1.5,
+        ease: "back.out(0.8)",
+      }, 4.0);
 
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      timelineRef.current = null;
+      ctx.revert();
+    };
   }, [isMobile]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative pb-10 w-full h-screen bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center perspective-1000"
+      className="relative pb-10 w-full min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center"
       style={{
-    backgroundImage: "url('/images/bg3.png')",
-  }}
+        backgroundImage: "url('/images/bg3.png')",
+      }}
     >
-      <div className="relative w-full h-full flex items-center justify-center ">
+      <div className="relative w-full h-full flex items-center justify-center py-20 px-4">
         
-        {/* ENVELOPE WRAPPER */}
-        <div ref={wrapRef} className="relative w-full max-w-5xl aspect-[960/650]">
-          
-          {/* LAYER 1: BACK (Fixed Base) */}
+        {/* WRAPPER */}
+        <div ref={wrapRef} className="relative w-[95%] md:w-full max-w-5xl aspect-[960/650]">
+
+          {/* BACK LAYER */}
           <div className="absolute inset-0 z-0">
-             <EnvelopeSVG part="back" flapShadowRef={flapShadowRef} className="w-full h-full" />
+            <EnvelopeSVG part="back" flapShadowRef={flapShadowRef} className="w-full h-full" />
           </div>
 
-          {/* LAYER 2: CARD (Animates In/Out) */}
+          {/* CARD LAYER */}
           <div
             ref={cardRef}
             className="absolute inset-0 flex items-center justify-center z-10"
-            style={{ willChange: "transform" }}
+            style={{ willChange: "transform, opacity" }}
           >
-             <InviteCard />
+            {/* CHANGED: 
+               1. Removed fixed width/height on this wrapper.
+               2. Added aspect-ratio matching the card design (820/520) ~ 1.57.
+               This ensures the fluid InviteCard retains its shape.
+            */}
+            <div className="w-[92%] md:w-[820px] h-[78vh] max-h-[700px] md:h-[520px] shadow-lg">
+              <InviteCard />
+            </div>
           </div>
 
-          {/* LAYER 3: POCKET (Visual Overlay) */}
+          {/* POCKET LAYER */}
           <div className="absolute inset-0 z-20 pointer-events-none">
-             <EnvelopeSVG part="pocket" className="w-full h-full" />
+            <EnvelopeSVG part="pocket" className="w-full h-full" />
           </div>
 
-          {/* LAYER 4: FLAP (Animates Open/Close) */}
+          {/* SEAL BUTTON */}
+          <button
+            ref={sealRef}
+            type="button"
+            onClick={handleSealClick}
+            className="absolute z-[35] left-1/2 top-[68%] -translate-x-1/2 -translate-y-1/2 w-[70px] h-[70px] md:w-[92px] md:h-[92px] rounded-full shadow-md active:scale-[0.98] transition-transform cursor-pointer"
+            aria-label="Open invitation"
+          >
+            <img
+              src="/main-logo.webp"
+              alt="Seal Logo"
+              className="w-full h-full object-contain"
+              draggable={false}
+            />
+          </button>
+
+          {/* FLAP LAYER */}
           <div ref={flapContainerRef} className="absolute inset-0 z-30 pointer-events-none">
-             <EnvelopeSVG 
-                part="flap" 
-                flapRef={flapRef} 
-                seamRef={seamRef} 
-                className="w-full h-full" 
-              />
+            <EnvelopeSVG part="flap" flapRef={flapRef} seamRef={seamRef} className="w-full h-full" />
           </div>
-
         </div>
       </div>
     </section>

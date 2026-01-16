@@ -8,7 +8,7 @@ interface Props {
   seamRef?: React.RefObject<SVGPolylineElement>;
   flapShadowRef?: React.RefObject<SVGPathElement>;
   className?: string;
-  part: "back" | "pocket" | "flap"; // New Prop to control layers
+  part: "back" | "pocket" | "flap";
 }
 
 const EnvelopeSVG: React.FC<Props> = ({
@@ -26,7 +26,7 @@ const EnvelopeSVG: React.FC<Props> = ({
       style={{ overflow: "visible" }}
     >
       <defs>
-        <linearGradient id="paperGrad" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#fbf6ee" />
           <stop offset="100%" stopColor="#FEFCEF" />
         </linearGradient>
@@ -38,7 +38,7 @@ const EnvelopeSVG: React.FC<Props> = ({
         </linearGradient>
 
         <filter id="softShadow">
-          <feDropShadow dx="0" dy="10" stdDeviation="14" floodOpacity="0.18" />
+          <feDropShadow dx="0" dy="4" stdDeviation="6" floodOpacity="0.15" />
         </filter>
 
         <filter id="flapBlur">
@@ -46,7 +46,6 @@ const EnvelopeSVG: React.FC<Props> = ({
         </filter>
       </defs>
 
-      {/* LAYER 1: BACK & BODY (Rendered when part === 'back') */}
       {part === "back" && (
         <>
           <rect
@@ -68,7 +67,6 @@ const EnvelopeSVG: React.FC<Props> = ({
             stroke="url(#goldFoil)"
             strokeWidth="3"
           />
-          {/* Shadow falls on the back/card area */}
           <path
             ref={flapShadowRef}
             d="M40 120 L480 390 L920 120 Z"
@@ -79,7 +77,6 @@ const EnvelopeSVG: React.FC<Props> = ({
         </>
       )}
 
-      {/* LAYER 3: POCKET (Rendered when part === 'pocket') */}
       {part === "pocket" && (
         <>
           <polygon points="30,600 480,380 930,600" fill="#FEFCEF" />
@@ -88,16 +85,9 @@ const EnvelopeSVG: React.FC<Props> = ({
         </>
       )}
 
-      {/* LAYER 4: FLAP (Rendered when part === 'flap') */}
       {part === "flap" && (
         <>
-          <polygon
-            ref={flapRef}
-            points={FLAP_CLOSED}
-            fill="#fffaf2"
-            stroke="none"
-          />
-          {/* Gold Seam on Flap */}
+          <polygon ref={flapRef} points={FLAP_CLOSED} fill="#fffaf2" stroke="none" />
           <polyline
             ref={seamRef}
             points={FLAP_CLOSED}

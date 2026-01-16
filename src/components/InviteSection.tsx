@@ -94,18 +94,19 @@ const InviteSection: React.FC = () => {
       });
 
       timelineRef.current = tl;
+      tl.timeScale(isMobile ? 0.5 : 1.0);
 
       // === ANIMATION SEQUENCE === //
 
       // 1. Open Flap
-      tl.to(flap, { attr: { points: FLAP_OPEN_OVERSHOOT }, duration: 1.5, ease: "power2.inOut" }, 0)
-        .to(seam, { attr: { points: SEAM_OPEN_OVERSHOOT }, duration: 1.5, ease: "power2.inOut" }, 0)
-        .to(seal, { scale: 1.2, opacity: 0, duration: 1.0 }, 0)
-        .to(shadow, { opacity: 0.14, duration: 1.0 }, 0.5);
+      tl.to(flap, { attr: { points: FLAP_OPEN_OVERSHOOT }, duration: 0.8, ease: "power2.inOut" }, 0)
+        .to(seam, { attr: { points: SEAM_OPEN_OVERSHOOT }, duration: 0.8, ease: "power2.inOut" }, 0)
+        .to(seal, { scale: 1.2, opacity: 0, duration: 0.5 }, 0)
+        .to(shadow, { opacity: 0.14, duration: 0.5 }, 0.2);
 
       // 2. Settle Flap
-      tl.to(flap, { attr: { points: FLAP_OPEN_SETTLE }, duration: 0.8, ease: "power2.out" }, 1.5)
-        .to(seam, { attr: { points: SEAM_OPEN_SETTLE }, duration: 0.8, ease: "power2.out" }, 1.5);
+      tl.to(flap, { attr: { points: FLAP_OPEN_SETTLE }, duration: 0.4, ease: "power2.out" }, 1.5)
+        .to(seam, { attr: { points: SEAM_OPEN_SETTLE }, duration: 0.4, ease: "power2.out" }, 1.5);
 
       // 3. Send Flap to Back
       tl.set(flapContainer, { zIndex: 0 }, 2.2);
@@ -117,7 +118,7 @@ const extractionY = isMobile ? -(wrapH * 0.9) : -380;
 
       tl.to(card, {
         y: extractionY,
-        duration: 1.8,
+        duration: 0.9,
         ease: "power3.inOut",
       }, 2.2);
 
@@ -137,7 +138,7 @@ const extractionY = isMobile ? -(wrapH * 0.9) : -380;
       tl.to(card, {
         y: 0, 
         scale: 1, 
-        duration: 1.5,
+        duration: 0.8,
         ease: "back.out(0.8)",
       }, 4.0);
 

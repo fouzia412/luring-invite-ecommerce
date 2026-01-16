@@ -63,17 +63,20 @@ const Index = () => {
         /> */}
 
         <TrendingVideo />
-        <CategoriesCarousel />
-        <WhyChooseUs />
-        <StatsCounter />
-        <BestSellersCarousel />
-        <CollectionCarousel />
         <ServicesSection />
+        <WhyChooseUs />
+        {/* <CategoriesCarousel /> */}
+       
         <ProcessScrollSection />
-        <ShowcaseParallax />
+        <BestSellersCarousel />
+        <StatsCounter />
         <TestimonialsSection />
-        <FAQPreview />
-        <ContactFormSection />
+        {/* <CollectionCarousel /> */}
+       
+       
+        {/* <ShowcaseParallax /> */}
+        {/* <FAQPreview /> */}
+        {/* <ContactFormSection /> */}
       </main>
 
       <Footer />

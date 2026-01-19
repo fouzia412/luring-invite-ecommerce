@@ -1,3 +1,4 @@
+// src\data\products.ts
 export interface Product {
   id: string;
   title: string;
@@ -21,6 +22,11 @@ export interface Product {
 
   // ✅ Add this
   video?: ProductVideo;
+
+  // New fields for enhanced filtering
+  religion?: ("Hindu" | "Muslim" | "Christian" | "Sikh" | "Jain" | "Other")[];
+  region?: ("South Indian" | "North Indian" | "East Indian" | "West Indian" | "Other")[];
+  subOccasion?: string[]; // e.g., ["1st Anniversary", "Silver Jubilee"] or ["1st Birthday", "Sweet 16"]
 }
 
 
@@ -222,49 +228,49 @@ export interface ProductVideo {
 }
 
 export const products: Product[] = [
-{
-  id: "prod-1",
-  title: "Royal 3D Palace Invitation",
-  slug: "royal-3d-palace-invitation",
-  category: "ai-video-invites",
-  collection: "3D AI Video",
-  collectionSlug: "3d-ai-video",
-  priceFrom: 4999,
-  tags: ["Premium", "AI Powered", "3D Animation"],
-  deliveryTime: "72h",
-  styles: ["Royal", "Cinematic"],
-  languages: ["Telugu", "Hindi", "English"],
-  thumbnail: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
-  previewImages: [
-    "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
-    "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80",
-  ],
-  bestSeller: true,
-  isNew: false,
-  description:
-    "Experience the grandeur of royalty with our stunning 3D palace invitation. AI-crafted visuals bring your wedding story to life.",
-  whatIncluded: [
-    "60-90 second video",
-    "Custom 3D palace environment",
-    "AI voice narration",
-    "Background music",
-    "2 revision rounds",
-  ],
-  revisionPolicy:
-    "Up to 2 revision rounds included. Additional revisions at ₹500 each.",
-  deliverables: [
-    "MP4 video (1080p)",
-    "WhatsApp optimized version",
-    "Instagram Reel version",
-  ],
+  {
+    id: "prod-1",
+    title: "Royal 3D Palace Invitation",
+    slug: "royal-3d-palace-invitation",
+    category: "ai-video-invites",
+    collection: "3D AI Video",
+    collectionSlug: "3d-ai-video",
+    priceFrom: 4999,
+    tags: ["Premium", "AI Powered", "3D Animation"],
+    deliveryTime: "72h",
+    styles: ["Royal", "Cinematic"],
+    languages: ["Telugu", "Hindi", "English"],
+    thumbnail: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+    previewImages: [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+      "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80",
+    ],
+    bestSeller: true,
+    isNew: false,
+    description:
+      "Experience the grandeur of royalty with our stunning 3D palace invitation. AI-crafted visuals bring your wedding story to life.",
+    whatIncluded: [
+      "60-90 second video",
+      "Custom 3D palace environment",
+      "AI voice narration",
+      "Background music",
+      "2 revision rounds",
+    ],
+    revisionPolicy:
+      "Up to 2 revision rounds included. Additional revisions at ₹500 each.",
+    deliverables: [
+      "MP4 video (1080p)",
+      "WhatsApp optimized version",
+      "Instagram Reel version",
+    ],
 
-  // ✅ VIDEO SUPPORT (this enables play button in Best Sellers)
-  video: {
-    platform: "local", // local | youtube | instagram | pinterest
-    url: "/videos/1.mp4",
-    // thumbnail: "/videos/royal-3d-palace-poster.jpg" // optional
+    // ✅ VIDEO SUPPORT (this enables play button in Best Sellers)
+    video: {
+      platform: "local", // local | youtube | instagram | pinterest
+      url: "/videos/1.mp4",
+      // thumbnail: "/videos/royal-3d-palace-poster.jpg" // optional
+    },
   },
-},
 
   {
     id: 'prod-2',
@@ -359,6 +365,9 @@ export const products: Product[] = [
     whatIncluded: ['Digital PDF invite', 'Event schedule', 'Venue maps', '1 revision'],
     revisionPolicy: '1 revision included.',
     deliverables: ['High-res PDF', 'WhatsApp image', 'Instagram story'],
+    religion: ['Hindu'],
+    region: ['South Indian'],
+    subOccasion: ["traditional-wedding", "wedding-invite"]
   },
   {
     id: 'prod-6',
@@ -382,6 +391,9 @@ export const products: Product[] = [
     whatIncluded: ['5 event cards', 'Save the date', 'RSVP card', 'Thank you card', '2 revisions'],
     revisionPolicy: '2 revisions included.',
     deliverables: ['All cards in PDF', 'Print-ready files', 'Social media sizes'],
+    religion: ['Hindu'],
+    region: ['North Indian'],
+    subOccasion: ["wedding-stationery", "save-the-date", "reception-invite"]
   },
   {
     id: 'prod-7',
@@ -405,6 +417,9 @@ export const products: Product[] = [
     whatIncluded: ['Digital invite', 'Event details', '1 revision'],
     revisionPolicy: '1 revision included.',
     deliverables: ['PDF', 'WhatsApp image'],
+    religion: ['Other'],
+    region: ['Other'],
+    subOccasion: ["modern-wedding", "wardrobe-planner"]
   },
   // Birthday
   {
@@ -429,6 +444,7 @@ export const products: Product[] = [
     whatIncluded: ['Digital invite', 'Party details', '1 revision'],
     revisionPolicy: '1 revision included.',
     deliverables: ['PDF', 'WhatsApp image'],
+    subOccasion: ['1st-birthday', 'kids-birthday'],
   },
   // Anniversary
   {
@@ -453,6 +469,7 @@ export const products: Product[] = [
     whatIncluded: ['Digital invite', 'Event details', '1 revision'],
     revisionPolicy: '1 revision included.',
     deliverables: ['PDF', 'WhatsApp image'],
+    subOccasion: ['silver-jubilee'],
   },
   // Logo
   {
@@ -477,6 +494,7 @@ export const products: Product[] = [
     whatIncluded: ['3 logo concepts', 'Final logo files', 'Color variations', '2 revisions'],
     revisionPolicy: '2 revision rounds included.',
     deliverables: ['PNG', 'SVG', 'PDF', 'Color + B&W versions'],
+    subOccasion: ["wedding-stationery"]
   },
   // Caricature
   {
@@ -501,6 +519,7 @@ export const products: Product[] = [
     whatIncluded: ['Custom couple caricature', 'Background theme', 'Outfit customization', '2 revisions'],
     revisionPolicy: '2 revision rounds included.',
     deliverables: ['High-res PNG', 'Print-ready PDF'],
+    subOccasion: ["wedding-invite", "reception-invite"]
   },
   // House Warming
   {
@@ -525,6 +544,9 @@ export const products: Product[] = [
     whatIncluded: ['Digital invite', 'Pooja details', '1 revision'],
     revisionPolicy: '1 revision included.',
     deliverables: ['PDF', 'WhatsApp image'],
+    religion: ['Hindu'],
+    region: ['South Indian'],
+    subOccasion: ["griha-pravesh", "new-home"]
   },
   // Baby Shower
   {
@@ -549,6 +571,7 @@ export const products: Product[] = [
     whatIncluded: ['Digital invite', 'Party details', '1 revision'],
     revisionPolicy: '1 revision included.',
     deliverables: ['PDF', 'WhatsApp image'],
+    subOccasion: ["boy", "girl", "gender-neutral"]
   },
   // PDF Invites
   {
@@ -573,6 +596,9 @@ export const products: Product[] = [
     whatIncluded: ['PDF invite card', '1 revision'],
     revisionPolicy: '1 revision included.',
     deliverables: ['PDF'],
+    religion: ['Muslim'],
+    region: ['North Indian'],
+    subOccasion: ["wedding-invite", "save-the-date"]
   },
   // Stationery
   {
@@ -597,6 +623,9 @@ export const products: Product[] = [
     whatIncluded: ['Main invite', 'Save the date', 'RSVP', 'Menu', 'Program', 'Thank you', '3 revisions'],
     revisionPolicy: '3 revision rounds included.',
     deliverables: ['All items in PDF', 'Print-ready files'],
+    religion: ['Christian'],
+    region: ['South Indian'],
+    subOccasion: ["wedding-stationery", "wardrobe-planner", "reception-invite"]
   },
 ];
 

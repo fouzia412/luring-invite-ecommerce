@@ -5,6 +5,8 @@ import PageHero from '@/components/shared/PageHero';
 import { motion } from 'framer-motion';
 import { Heart, Award, Users, Sparkles } from 'lucide-react';
 import StatsCounter from '@/components/home/StatsCounter';
+import { WorkProcessTimeline } from "@/components/about/work-process-timeline";
+import ProcessScrollSection from '@/components/home/ProcessScrollSection';
 
 const values = [
   {
@@ -107,7 +109,7 @@ export default function About() {
                     <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="w-7 h-7 text-primary" />
                     </div>
-                    <h3 className="font-semibold text-lg text-foreground mb-2">{value.title}</h3>
+                    <p className="font-semibold text-lg text-foreground mb-2">{value.title}</p>
                     <p className="text-muted-foreground text-sm">{value.description}</p>
                   </motion.div>
                 );
@@ -115,6 +117,7 @@ export default function About() {
             </div>
           </div>
         </section>
+         <ProcessScrollSection />
       </main>
       <Footer />
       <FloatingWhatsApp />

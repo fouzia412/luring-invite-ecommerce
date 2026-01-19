@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
+import React, { useState } from "react";
 import { Phone, Mail, MapPin, Instagram, Facebook, Youtube } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { collections } from '@/data/products';
+import { motion } from "framer-motion";
 
 export default function Footer() {
+  const [done, setDone] = useState(true);
+
   const openWhatsApp = () => {
     const message = encodeURIComponent(
       "Hi! I'm interested in your invitation services. Can you help me?"
@@ -54,16 +58,16 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Brand */}
             <div>
-              <Link to="/" className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center">
-                  <span className="text-primary-foreground font-heading text-xl">O</span>
-                </div>
-                <div>
-                  <h1 className="font-heading text-xl leading-tight">
-                    Outright's Luring
-                  </h1>
-                  <p className="text-xs text-muted-foreground -mt-1">Invite</p>
-                </div>
+              <Link to="/" className="relative h-20 flex items-center">
+                {done && (
+                  <motion.img
+                    layoutId="site-logo"
+                    src="/whitelogo.png"
+                    alt="Logo"
+                    className="h-28 w-auto object-contain"
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                  />
+                )}
               </Link>
               <p className="text-muted-foreground text-sm mb-6">
                 Where dreams meet innovation, and every occasion becomes a cherished memory.

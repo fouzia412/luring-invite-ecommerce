@@ -89,7 +89,7 @@ export default function Contact() {
                           <IconComponent className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-sm md:text-base mb-1">{info.title}</h3>
+                          <p className="font-semibold text-sm md:text-base mb-1">{info.title}</p>
                           <p className="text-muted-foreground text-sm">{info.value}</p>
                         </div>
                       </div>
@@ -181,6 +181,23 @@ export default function Contact() {
             </div>
           </div>
         </section>
+        {/* Map Section */}
+      <section className="pb-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="rounded-2xl overflow-hidden shadow-lg">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2925253551093!2d78.37706367462825!3d17.445707601123505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb918eba467a47%3A0xa28b265953b650b4!2sOutright%20Creators!5e0!3m2!1sen!2sin!4v1750748293049!5m2!1sen!2sin"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Our Location"
+            ></iframe>
+          </div>
+        </div>
+      </section>  
       </main>
       <Footer />
       <FloatingWhatsApp />

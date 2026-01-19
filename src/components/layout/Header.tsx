@@ -40,6 +40,7 @@ const Header: React.FC = () => {
     { label: "BIRTHDAY", slug: "birthday" },
     { label: "ANNIVERSARY", slug: "anniversary" },
     { label: "HOUSEWARMING", slug: "house-warming" },
+    { label: "PDF INVITES", slug: "pdf-invites" },
   ];
 
   // Text carousel
@@ -184,7 +185,10 @@ const Header: React.FC = () => {
               </Link>
 
               {/* Desktop Nav */}
-              <nav ref={dropdownRef} className="hidden lg:flex items-center gap-8">
+              <nav
+                ref={dropdownRef}
+                className="hidden lg:flex items-center gap-8"
+              >
                 {navItems.map(({ label, slug }) => (
                   <Link
                     key={slug}
@@ -194,10 +198,16 @@ const Header: React.FC = () => {
                     {label}
                   </Link>
                 ))}
-                <Link to="/about" className="font-semibold hover:text-[#A86DCD]">
+                <Link
+                  to="/about"
+                  className="font-semibold hover:text-[#A86DCD]"
+                >
                   ABOUT
                 </Link>
-                <Link to="/contact" className="font-semibold hover:text-[#A86DCD]">
+                <Link
+                  to="/contact"
+                  className="font-semibold hover:text-[#A86DCD]"
+                >
                   CONTACT
                 </Link>
 
@@ -216,7 +226,11 @@ const Header: React.FC = () => {
                 className="lg:hidden p-2"
                 aria-label="Toggle menu"
               >
-                {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+                {isMobileMenuOpen ? (
+                  <X className="w-7 h-7" />
+                ) : (
+                  <Menu className="w-7 h-7" />
+                )}
               </button>
             </div>
           </div>
@@ -229,7 +243,10 @@ const Header: React.FC = () => {
           <div ref={mobileMenuRef} className="p-4">
             <div className="flex justify-between items-center mb-8">
               <span className="text-xl font-bold">Menu</span>
-              <button onClick={() => setIsMobileMenuOpen(false)} aria-label="Close menu">
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close menu"
+              >
                 <X className="w-7 h-7" />
               </button>
             </div>
@@ -262,25 +279,55 @@ const Header: React.FC = () => {
             {/* ✅ Mobile Footer Links */}
             <div className="mt-10 border-t pt-6">
               <div className="flex items-center justify-center gap-5 text-gray-700">
-                <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                <a
+                  href={SOCIAL_LINKS.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="WhatsApp"
+                >
                   <i className="fab fa-whatsapp text-2xl text-green-500" />
                 </a>
                 <a href={SOCIAL_LINKS.email} aria-label="Email">
                   <Mail className="w-6 h-6" />
                 </a>
-                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
+                <a
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                >
                   <i className="fab fa-instagram text-2xl" />
                 </a>
-                <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" aria-label="Facebook">
+                <a
+                  href={SOCIAL_LINKS.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Facebook"
+                >
                   <i className="fab fa-facebook-f text-2xl" />
                 </a>
-                <a href={SOCIAL_LINKS.pinterest} target="_blank" rel="noreferrer" aria-label="Pinterest">
+                <a
+                  href={SOCIAL_LINKS.pinterest}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Pinterest"
+                >
                   <i className="fab fa-pinterest-p text-2xl" />
                 </a>
-                <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noreferrer" aria-label="YouTube">
+                <a
+                  href={SOCIAL_LINKS.youtube}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="YouTube"
+                >
                   <i className="fab fa-youtube text-2xl" />
                 </a>
-                <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <a
+                  href={SOCIAL_LINKS.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                >
                   <i className="fab fa-linkedin-in text-2xl" />
                 </a>
               </div>
@@ -367,8 +414,12 @@ const Header: React.FC = () => {
                   <option value="">Which service?</option>
                   <option value="Wedding Invites">Wedding Invites</option>
                   <option value="Birthday Invites">Birthday Invites</option>
-                  <option value="Anniversary Invites">Anniversary Invites</option>
-                  <option value="Housewarming Invites">Housewarming Invites</option>
+                  <option value="Anniversary Invites">
+                    Anniversary Invites
+                  </option>
+                  <option value="Housewarming Invites">
+                    Housewarming Invites
+                  </option>
                   <option value="Custom Magnet">Custom Magnet</option>
                   <option value="Other">Other</option>
                 </select>
@@ -389,22 +440,52 @@ const Header: React.FC = () => {
 
                 {/* ✅ ALL SOCIAL ICONS INSIDE POPUP (Desktop + Mobile) */}
                 <div className="flex items-center justify-center gap-5 pt-3 text-gray-700">
-                  <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                  <a
+                    href={SOCIAL_LINKS.whatsapp}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="WhatsApp"
+                  >
                     <i className="fab fa-whatsapp text-2xl text-green-500" />
                   </a>
-                  <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" aria-label="Facebook">
+                  <a
+                    href={SOCIAL_LINKS.facebook}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Facebook"
+                  >
                     <i className="fab fa-facebook-f text-2xl" />
                   </a>
-                  <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
+                  <a
+                    href={SOCIAL_LINKS.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Instagram"
+                  >
                     <i className="fab fa-instagram text-2xl" />
                   </a>
-                  <a href={SOCIAL_LINKS.pinterest} target="_blank" rel="noreferrer" aria-label="Pinterest">
+                  <a
+                    href={SOCIAL_LINKS.pinterest}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Pinterest"
+                  >
                     <i className="fab fa-pinterest-p text-2xl" />
                   </a>
-                  <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noreferrer" aria-label="YouTube">
+                  <a
+                    href={SOCIAL_LINKS.youtube}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="YouTube"
+                  >
                     <i className="fab fa-youtube text-2xl" />
                   </a>
-                  <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                  <a
+                    href={SOCIAL_LINKS.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="LinkedIn"
+                  >
                     <i className="fab fa-linkedin-in text-2xl" />
                   </a>
                   <a href={SOCIAL_LINKS.email} aria-label="Email">
